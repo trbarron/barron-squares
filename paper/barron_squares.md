@@ -194,7 +194,7 @@ The valid corner digits are therefore $\{2, 3, 4, 5, 6, 7, 8, 9\}$, but not all 
 The 22 distinct products that appear as edge values across all 118 squares are exactly those numbers in $\{10,\ldots,81\}$ with no zero digit:
 $$\{12, 14, 15, 16, 18, 21, 24, 25, 27, 28, 32, 35, 36, 42, 45, 48, 54, 56, 63, 64, 72, 81\}$$
 
-The most frequent products are **12** and **16** (each appearing 48 times), followed by **56** (40 times).
+The most frequent products are **12** and **16** (each appearing 48 times), followed by **24** and **56** (each 40 times).
 
 ### 3.3 Symmetry and transposition
 

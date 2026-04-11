@@ -1,0 +1,181 @@
+{
+  "total_squares": 118,
+  "search": {
+    "order": 1,
+    "size": "4x4",
+    "space": 6561,
+    "exhaustive": true,
+    "implementation": "src/find_4x4.py"
+  },
+  "transpose_symmetric": 46,
+  "transpose_symmetric_pct": 39.0,
+  "rotationally_symmetric": 0,
+  "corner_cell_frequency": {
+    "1": {
+      "count": 0,
+      "pct": 0.0
+    },
+    "2": {
+      "count": 36,
+      "pct": 7.6
+    },
+    "3": {
+      "count": 68,
+      "pct": 14.4
+    },
+    "4": {
+      "count": 60,
+      "pct": 12.7
+    },
+    "5": {
+      "count": 32,
+      "pct": 6.8
+    },
+    "6": {
+      "count": 60,
+      "pct": 12.7
+    },
+    "7": {
+      "count": 64,
+      "pct": 13.6
+    },
+    "8": {
+      "count": 84,
+      "pct": 17.8
+    },
+    "9": {
+      "count": 68,
+      "pct": 14.4
+    }
+  },
+  "excluded_corner_digits": [
+    1
+  ],
+  "edge_product_convention": "4 outer edges (top row, bottom row, left col, right col) per square; total = 118*4 = 472",
+  "edge_products": {
+    "total_positions": 472,
+    "distinct_products": 22,
+    "valid_products_sorted": [
+      12,
+      14,
+      15,
+      16,
+      18,
+      21,
+      24,
+      25,
+      27,
+      28,
+      32,
+      35,
+      36,
+      42,
+      45,
+      48,
+      54,
+      56,
+      63,
+      64,
+      72,
+      81
+    ],
+    "top_10": [
+      {
+        "product": 12,
+        "count": 48
+      },
+      {
+        "product": 16,
+        "count": 48
+      },
+      {
+        "product": 24,
+        "count": 40
+      },
+      {
+        "product": 56,
+        "count": 40
+      },
+      {
+        "product": 18,
+        "count": 32
+      },
+      {
+        "product": 48,
+        "count": 24
+      },
+      {
+        "product": 15,
+        "count": 24
+      },
+      {
+        "product": 21,
+        "count": 24
+      },
+      {
+        "product": 27,
+        "count": 24
+      },
+      {
+        "product": 42,
+        "count": 24
+      }
+    ]
+  },
+  "uniform_product_squares": [
+    {
+      "corners": [
+        2,
+        7,
+        7,
+        2
+      ],
+      "product": 14
+    },
+    {
+      "corners": [
+        3,
+        9,
+        9,
+        3
+      ],
+      "product": 27
+    },
+    {
+      "corners": [
+        6,
+        8,
+        8,
+        6
+      ],
+      "product": 48
+    },
+    {
+      "corners": [
+        7,
+        2,
+        2,
+        7
+      ],
+      "product": 14
+    },
+    {
+      "corners": [
+        8,
+        6,
+        6,
+        8
+      ],
+      "product": 48
+    },
+    {
+      "corners": [
+        9,
+        3,
+        3,
+        9
+      ],
+      "product": 27
+    }
+  ]
+}

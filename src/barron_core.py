@@ -183,8 +183,9 @@ def find_all_barron_squares(k: int, verbose: bool = False) -> list[list[list[int
     For k=1 (4×4):  9^4 = 6,561 combinations — instant.
     For k=2 (8×8):  9^16 ≈ 1.85e15 combinations — requires pruning.
 
-    For k≥2 the search is done with early pruning (see find_8x8 for a
-    faster dedicated implementation).
+    For k≥2 the search is done with early pruning (see find_8x8_fast.py
+    or the C implementation barron8x8.c for dedicated BOT-derivation
+    implementations).
 
     Returns a list of valid (4k × 4k) matrices.
     """

@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 
 from barron_core import display, is_valid_barron
 from find_4x4 import find_all_4x4, summarize as summarize_4x4
-from find_8x8 import find_all_8x8_fast
+from find_8x8_fast import find_all_8x8 as find_all_8x8_fast
 from find_nxn import random_search
 from analyze import full_analysis
 from barron_3d import find_all_barron_cubes_k1, is_valid_barron_cube
@@ -63,7 +63,10 @@ def run_4x4():
 
 def run_8x8(verbose=True):
     section("8×8 BARRON SQUARES  (k=2, exhaustive with pruning)")
-    print("Note: This search may take several minutes.\n")
+    print("Note: the Python BOT-derivation path is a reference implementation")
+    print("and is not practical for full enumeration. The canonical 1,248-square")
+    print("result (results/8x8_squares.json) was produced by src/barron8x8.c")
+    print("running 12 parallel workers for ~50 wall-clock hours.\n")
     t0 = time.time()
     squares = find_all_8x8_fast(verbose=verbose)
     elapsed = time.time() - t0
