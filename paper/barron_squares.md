@@ -37,7 +37,7 @@ We completely characterize the $4 \times 4$ case, finding exactly **118** valid 
 
 ### 1.1 Motivation
 
-A single-row version of the problem first appeared as a *FiveThirtyEight Riddler Express* puzzle: find a $4 \times 4$ grid of decimal digits such that every row and every column encodes a valid two-digit multiplication, with the leftmost digit times the rightmost digit equal to the two-digit number formed by the interior pair. The object is elementary to state and yet non-trivial to search: the full space of $9^4 = 6{,}561$ unconstrained corner assignments collapses, after consistency enforcement, to exactly $118$ valid boards. Small, finite answers of this kind are a classical target of *recreational number theory*, joining families such as magic squares, cross-figures, and multiplicative alphametics. What distinguishes the present object is that the constraints are simultaneously *positional* (they depend on decimal place value) and *structural* (they couple boundaries to interiors), placing it in a hybrid regime between digit puzzles and constraint satisfaction on integer grids.
+A single-row version of the problem first appeared as a *FiveThirtyEight Riddler Express* puzzle [1]: find a $4 \times 4$ grid of decimal digits such that every row and every column encodes a valid two-digit multiplication, with the leftmost digit times the rightmost digit equal to the two-digit number formed by the interior pair. The object is elementary to state and yet non-trivial to search: the full space of $9^4 = 6{,}561$ unconstrained corner assignments collapses, after consistency enforcement, to exactly $118$ valid boards. Small, finite answers of this kind are a classical target of *recreational number theory*, joining families such as magic squares, cross-figures, and multiplicative alphametics. What distinguishes the present object is that the constraints are simultaneously *positional* (they depend on decimal place value) and *structural* (they couple boundaries to interiors), placing it in a hybrid regime between digit puzzles and constraint satisfaction on integer grids.
 
 This paper formalizes the puzzle, generalizes it to a family of order-$k$ objects of size $4k \times 4k$, and studies its structure by a combination of exhaustive enumeration and algebraic reduction.
 
@@ -381,11 +381,11 @@ The three-dimensional generalization collapses completely: no $4 \times 4 \times
 
 ## References
 
-1. FiveThirtyEight, *The Riddler* column. Puzzle sourced from the "Riddler Express" series, which features short combinatorial and number-theoretic puzzles.
+1. Z. Wissner-Gross, *Can You Crack This Square's Hidden Code?*, FiveThirtyEight *Riddler* column, available at <https://fivethirtyeight.com/features/can-you-crack-this-squares-hidden-code/>. The original order-1 puzzle that motivated this work.
 2. W. W. Rouse Ball and H. S. M. Coxeter, *Mathematical Recreations and Essays*, 13th ed., Dover, 1987. [Classical reference for magic squares and multiplicative digit puzzles.]
 3. D. E. Knuth, *The Art of Computer Programming, Volume 4: Combinatorial Algorithms*, Addison-Wesley, 2011. [Constraint satisfaction and exact cover methods underlying the enumeration algorithms used here.]
 4. P. J. Cameron, *Combinatorics: Topics, Techniques, Algorithms*, Cambridge University Press, 1994. [Symmetry groups acting on combinatorial objects, as used in §3.3 and §6.1.]
-5. Source code and data for this paper: `https://github.com/tbarron/barron-squares` (Python and C implementations referenced throughout §3, §4, and §5).
+5. T. Barron, *Barron Squares source code and data*, GitHub repository, available at <https://github.com/trbarron/barron-squares>. Python and C implementations referenced throughout §3, §4, and §5, together with the canonical enumeration output in `results/`.
 
 ---
 
