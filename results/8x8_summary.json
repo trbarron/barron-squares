@@ -1,0 +1,105 @@
+{
+  "total_squares": 1248,
+  "search": {
+    "order": 2,
+    "size": "8x8",
+    "tl_space": 6561,
+    "workers": 12,
+    "algorithm": "BOT-derivation (src/barron8x8.c)",
+    "wall_clock_hours_approx": 50
+  },
+  "transpose_symmetric": 624,
+  "transpose_symmetric_pct": 50.0,
+  "inner_center_symmetric": 1248,
+  "endpoint_pairing": {
+    "case_A_count": 2598,
+    "case_B_count": 2394,
+    "total_inner_pairs": 4992,
+    "failures": 0
+  },
+  "corner_cell_frequency": {
+    "1": {
+      "count": 1624,
+      "pct": 8.13
+    },
+    "2": {
+      "count": 1908,
+      "pct": 9.56
+    },
+    "3": {
+      "count": 2160,
+      "pct": 10.82
+    },
+    "4": {
+      "count": 2564,
+      "pct": 12.84
+    },
+    "5": {
+      "count": 1760,
+      "pct": 8.81
+    },
+    "6": {
+      "count": 2188,
+      "pct": 10.96
+    },
+    "7": {
+      "count": 2696,
+      "pct": 13.5
+    },
+    "8": {
+      "count": 2480,
+      "pct": 12.42
+    },
+    "9": {
+      "count": 2588,
+      "pct": 12.96
+    }
+  },
+  "edge_product_convention": "4 edge rows (0,1,6,7) + 4 edge cols (0,1,6,7) per square; total = 1248*8 = 9984",
+  "edge_products": {
+    "total_positions": 9984,
+    "distinct_products": 668,
+    "top_10": [
+      {
+        "product": 1892,
+        "count": 80
+      },
+      {
+        "product": 1782,
+        "count": 72
+      },
+      {
+        "product": 1596,
+        "count": 64
+      },
+      {
+        "product": 2376,
+        "count": 64
+      },
+      {
+        "product": 1116,
+        "count": 56
+      },
+      {
+        "product": 2475,
+        "count": 56
+      },
+      {
+        "product": 3168,
+        "count": 56
+      },
+      {
+        "product": 1197,
+        "count": 56
+      },
+      {
+        "product": 1274,
+        "count": 48
+      },
+      {
+        "product": 1224,
+        "count": 48
+      }
+    ]
+  }
+}

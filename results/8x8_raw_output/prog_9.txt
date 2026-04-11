@@ -1,0 +1,5 @@
+TL[4999]  elapsed=39125s  outer=591M  inner=1983855M  found=23
+TL[5099]  elapsed=82690s  outer=1327M  inner=4451840M  found=53
+TL[5199]  elapsed=97283s  outer=1932M  inner=5300063M  found=70
+TL[5299]  elapsed=123043s  outer=2584M  inner=6842384M  found=82
+TL[5399]  elapsed=151709s  outer=3282M  inner=8700359M  found=99
