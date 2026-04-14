@@ -123,6 +123,74 @@ With all eight edge cells fixed, the four inner cells are determined by the inne
 $$10\,M_{1,1} + M_{1,2} \;=\; t(ac)\cdot t(bd),$$
 giving $M_{1,1} = t(t(ac)\,t(bd))$ and $M_{1,2} = u(t(ac)\,t(bd))$. Row 2 and the two inner columns yield the analogous expressions. $\square$
 
+````{=typst}
+#v(0.3em)
+#figure(
+  grid(
+    columns: (auto, 2em, auto),
+    gutter: 0pt,
+    // Left: order-1 with formulas
+    {
+      let corner = rgb("#2d5016").lighten(70%)
+      let edge = rgb("#1a5276").lighten(70%)
+      let inner = rgb("#7d3c00").lighten(72%)
+      table(
+        columns: (2.8em, 2.8em, 2.8em, 2.8em),
+        rows: (2em, 2em, 2em, 2em),
+        align: center + horizon,
+        stroke: 0.5pt,
+        fill: (x, y) => {
+          if (x == 0 or x == 3) and (y == 0 or y == 3) { corner }
+          else if x == 0 or x == 3 or y == 0 or y == 3 { edge }
+          else { inner }
+        },
+        [$a$], [$t(a b)$], [$u(a b)$], [$b$],
+        [$t(a c)$], text(size: 7pt)[$M_(1,1)$], text(size: 7pt)[$M_(1,2)$], [$t(b d)$],
+        [$u(a c)$], text(size: 7pt)[$M_(2,1)$], text(size: 7pt)[$M_(2,2)$], [$u(b d)$],
+        [$c$], [$t(c d)$], [$u(c d)$], [$d$],
+      )
+    },
+    // Spacer
+    [],
+    // Right: general order-k schematic
+    {
+      let corner = rgb("#2d5016").lighten(70%)
+      let edge = rgb("#1a5276").lighten(70%)
+      let inner = rgb("#7d3c00").lighten(72%)
+      table(
+        columns: (3.5em, 7em, 3.5em),
+        rows: (3em, 6.2em, 3em),
+        align: center + horizon,
+        stroke: 0.5pt,
+        fill: (x, y) => {
+          if (x == 0 or x == 2) and (y == 0 or y == 2) { corner }
+          else if x == 0 or x == 2 or y == 0 or y == 2 { edge }
+          else { inner }
+        },
+        text(size: 8pt, weight: "bold")[$A$],
+        text(size: 7pt)[row-forced\ from $A, B$],
+        text(size: 8pt, weight: "bold")[$B$],
+        text(size: 7pt)[col-forced\ from $A, C$],
+        text(size: 7pt)[doubly\ determined\ (must be\ consistent)],
+        text(size: 7pt)[col-forced\ from $B, D$],
+        text(size: 8pt, weight: "bold")[$C$],
+        text(size: 7pt)[row-forced\ from $C, D$],
+        text(size: 8pt, weight: "bold")[$D$],
+      )
+    },
+  ),
+  kind: "figure",
+  supplement: "Figure",
+  caption: [Structure of a Barron Square.
+    _Left:_ order 1 ($4 times 4$); each cell shows the formula from Theorem 2.1.
+    #box(width: 0.8em, height: 0.8em, fill: rgb("#2d5016").lighten(70%), stroke: 0.5pt) corners (free),
+    #box(width: 0.8em, height: 0.8em, fill: rgb("#1a5276").lighten(70%), stroke: 0.5pt) edge cells (singly determined),
+    #box(width: 0.8em, height: 0.8em, fill: rgb("#7d3c00").lighten(72%), stroke: 0.5pt) inner cells (doubly determined).
+    _Right:_ general order $k$ ($4k times 4k$); corners are $k times k$ blocks.],
+) <fig-structure>
+#v(0.3em)
+````
+
 ### 2.2 Consistency conditions
 
 The forcing in Theorem 2.1 pins each inner cell *twice* — once by its row and once by its column — so $M$ is a genuine Barron Square only when the two determinations agree.
@@ -206,20 +274,29 @@ The most frequent products are **12** and **16** (each appearing 48 times), foll
 
 Among the 118 squares: **46 are transpose-symmetric** ($M = M^\top$) and **0 are rotationally symmetric**. The 72 non-self-transpose squares form 36 transpose pairs, giving **82 equivalence classes** under transposition.
 
-### 3.4 Uniform-product squares
+````{=typst}
+#block(breakable: false)[
+=== 3.4 Uniform-product squares
 
-Six of the 118 squares have the remarkable property that **all four edge products are equal**:
+Six of the 118 squares have the remarkable property that *all four edge products are equal*:
 
-| TL | TR | BL | BR | Product |
-|----|----|----|-----|---------|
-| 2 | 7 | 7 | 2 | 14 |
-| 7 | 2 | 2 | 7 | 14 |
-| 3 | 9 | 9 | 3 | 27 |
-| 9 | 3 | 3 | 9 | 27 |
-| 6 | 8 | 8 | 6 | 48 |
-| 8 | 6 | 6 | 8 | 48 |
+#align(center)[
+#table(
+  columns: 5,
+  align: center,
+  table.header[*TL*][*TR*][*BL*][*BR*][*Product*],
+  [2], [7], [7], [2], [14],
+  [7], [2], [2], [7], [14],
+  [3], [9], [9], [3], [27],
+  [9], [3], [3], [9], [27],
+  [6], [8], [8], [6], [48],
+  [8], [6], [6], [8], [48],
+)
+]
 
-These form three transpose pairs. Note that in each pair, $ab = cd = ac = bd$, which forces $(a,b,c,d) = (a,b,b,a)$ — the corners must be anti-diagonal symmetric. The three eligible products are $\{14, 27, 48\}$.
+These form three transpose pairs. Note that in each pair, $a b = c d = a c = b d$, which forces $(a, b, c, d) = (a, b, b, a)$ — the corners must be anti-diagonal symmetric. The three eligible products are $\{14, 27, 48\}$.
+]
+````
 
 ---
 
@@ -397,18 +474,129 @@ The three-dimensional generalization collapses completely: no $4 \times 4 \times
 
 ## Appendix A: Order-1 corner quadruples
 
-All $118$ valid corner quadruples $(a, b, c, d) = (TL, TR, BL, BR)$ at order 1 are enumerated by `src/find_4x4.py`. The table below records the six *uniform-product* squares of §3.4 (all four edge products equal), as a representative extract; the full list is produced by the enumeration script and is available in the companion code repository.
+All $118$ valid corner quadruples $(a, b, c, d) = (TL, TR, BL, BR)$ at order 1, sorted by $(a, b, c, d)$. The Notes column marks self-transpose squares (S) and uniform-product squares (U); see §3.3 and §3.4.
 
-| $a$ | $b$ | $c$ | $d$ | $ab$ | $cd$ | $ac$ | $bd$ |
-|---|---|---|---|---|---|---|---|
-| 2 | 7 | 7 | 2 | 14 | 14 | 14 | 14 |
-| 7 | 2 | 2 | 7 | 14 | 14 | 14 | 14 |
-| 3 | 9 | 9 | 3 | 27 | 27 | 27 | 27 |
-| 9 | 3 | 3 | 9 | 27 | 27 | 27 | 27 |
-| 6 | 8 | 8 | 6 | 48 | 48 | 48 | 48 |
-| 8 | 6 | 6 | 8 | 48 | 48 | 48 | 48 |
+| $a$ | $b$ | $c$ | $d$ | $ab$ | $cd$ | $ac$ | $bd$ | Notes |
+|---|---|---|---|---|---|---|---|---|
+| 2 | 6 | 6 | 3 | 12 | 18 | 12 | 18 | S |
+| 2 | 6 | 8 | 2 | 12 | 16 | 16 | 12 |  |
+| 2 | 6 | 9 | 2 | 12 | 18 | 18 | 12 |  |
+| 2 | 7 | 7 | 2 | 14 | 14 | 14 | 14 | U, S |
+| 2 | 8 | 6 | 2 | 16 | 12 | 12 | 16 |  |
+| 2 | 8 | 8 | 3 | 16 | 24 | 16 | 24 | S |
+| 2 | 8 | 8 | 6 | 16 | 48 | 16 | 48 | S |
+| 2 | 9 | 6 | 2 | 18 | 12 | 12 | 18 |  |
+| 2 | 9 | 9 | 5 | 18 | 45 | 18 | 45 | S |
+| 3 | 4 | 4 | 4 | 12 | 16 | 12 | 16 | S |
+| 3 | 4 | 5 | 3 | 12 | 15 | 15 | 12 |  |
+| 3 | 4 | 6 | 3 | 12 | 18 | 18 | 12 |  |
+| 3 | 5 | 4 | 3 | 15 | 12 | 12 | 15 |  |
+| 3 | 5 | 5 | 5 | 15 | 25 | 15 | 25 | S |
+| 3 | 5 | 8 | 3 | 15 | 24 | 24 | 15 |  |
+| 3 | 6 | 4 | 3 | 18 | 12 | 12 | 18 |  |
+| 3 | 6 | 6 | 2 | 18 | 12 | 18 | 12 | S |
+| 3 | 7 | 7 | 8 | 21 | 56 | 21 | 56 | S |
+| 3 | 7 | 8 | 8 | 21 | 64 | 24 | 56 |  |
+| 3 | 7 | 9 | 8 | 21 | 72 | 27 | 56 |  |
+| 3 | 8 | 5 | 3 | 24 | 15 | 15 | 24 |  |
+| 3 | 8 | 7 | 8 | 24 | 56 | 21 | 64 |  |
+| 3 | 8 | 8 | 2 | 24 | 16 | 24 | 16 | S |
+| 3 | 9 | 7 | 8 | 27 | 56 | 21 | 72 |  |
+| 3 | 9 | 9 | 3 | 27 | 27 | 27 | 27 | U, S |
+| 3 | 9 | 9 | 7 | 27 | 63 | 27 | 63 | S |
+| 4 | 3 | 3 | 5 | 12 | 15 | 12 | 15 | S |
+| 4 | 3 | 3 | 6 | 12 | 18 | 12 | 18 | S |
+| 4 | 3 | 4 | 4 | 12 | 16 | 16 | 12 |  |
+| 4 | 4 | 3 | 4 | 16 | 12 | 12 | 16 |  |
+| 4 | 4 | 4 | 3 | 16 | 12 | 16 | 12 | S |
+| 4 | 4 | 4 | 6 | 16 | 24 | 16 | 24 | S |
+| 4 | 4 | 4 | 9 | 16 | 36 | 16 | 36 | S |
+| 4 | 4 | 6 | 4 | 16 | 24 | 24 | 16 |  |
+| 4 | 4 | 9 | 4 | 16 | 36 | 36 | 16 |  |
+| 4 | 6 | 4 | 4 | 24 | 16 | 16 | 24 |  |
+| 4 | 6 | 8 | 7 | 24 | 56 | 32 | 42 |  |
+| 4 | 7 | 7 | 9 | 28 | 63 | 28 | 63 | S |
+| 4 | 8 | 6 | 7 | 32 | 42 | 24 | 56 |  |
+| 4 | 9 | 4 | 4 | 36 | 16 | 16 | 36 |  |
+| 4 | 9 | 9 | 8 | 36 | 72 | 36 | 72 | S |
+| 5 | 3 | 3 | 4 | 15 | 12 | 15 | 12 | S |
+| 5 | 3 | 3 | 8 | 15 | 24 | 15 | 24 | S |
+| 5 | 3 | 5 | 5 | 15 | 25 | 25 | 15 |  |
+| 5 | 5 | 3 | 5 | 25 | 15 | 15 | 25 |  |
+| 5 | 5 | 5 | 3 | 25 | 15 | 25 | 15 | S |
+| 5 | 7 | 9 | 5 | 35 | 45 | 45 | 35 |  |
+| 5 | 9 | 7 | 5 | 45 | 35 | 35 | 45 |  |
+| 5 | 9 | 9 | 2 | 45 | 18 | 45 | 18 | S |
+| 6 | 2 | 2 | 8 | 12 | 16 | 12 | 16 | S |
+| 6 | 2 | 2 | 9 | 12 | 18 | 12 | 18 | S |
+| 6 | 2 | 3 | 6 | 12 | 18 | 18 | 12 |  |
+| 6 | 3 | 2 | 6 | 18 | 12 | 12 | 18 |  |
+| 6 | 3 | 3 | 4 | 18 | 12 | 18 | 12 | S |
+| 6 | 4 | 4 | 4 | 24 | 16 | 24 | 16 | S |
+| 6 | 4 | 7 | 8 | 24 | 56 | 42 | 32 |  |
+| 6 | 7 | 4 | 8 | 42 | 32 | 24 | 56 |  |
+| 6 | 7 | 8 | 8 | 42 | 64 | 48 | 56 |  |
+| 6 | 7 | 9 | 6 | 42 | 54 | 54 | 42 |  |
+| 6 | 8 | 7 | 8 | 48 | 56 | 42 | 64 |  |
+| 6 | 8 | 8 | 2 | 48 | 16 | 48 | 16 | S |
+| 6 | 8 | 8 | 6 | 48 | 48 | 48 | 48 | U, S |
+| 6 | 9 | 7 | 6 | 54 | 42 | 42 | 54 |  |
+| 6 | 9 | 9 | 9 | 54 | 81 | 54 | 81 | S |
+| 7 | 2 | 2 | 7 | 14 | 14 | 14 | 14 | U, S |
+| 7 | 3 | 8 | 7 | 21 | 56 | 56 | 21 |  |
+| 7 | 3 | 8 | 8 | 21 | 64 | 56 | 24 |  |
+| 7 | 3 | 8 | 9 | 21 | 72 | 56 | 27 |  |
+| 7 | 4 | 9 | 7 | 28 | 63 | 63 | 28 |  |
+| 7 | 5 | 5 | 9 | 35 | 45 | 35 | 45 | S |
+| 7 | 6 | 6 | 9 | 42 | 54 | 42 | 54 | S |
+| 7 | 6 | 8 | 4 | 42 | 32 | 56 | 24 |  |
+| 7 | 6 | 8 | 8 | 42 | 64 | 56 | 48 |  |
+| 7 | 8 | 3 | 7 | 56 | 21 | 21 | 56 |  |
+| 7 | 8 | 3 | 8 | 56 | 24 | 21 | 64 |  |
+| 7 | 8 | 3 | 9 | 56 | 27 | 21 | 72 |  |
+| 7 | 8 | 6 | 4 | 56 | 24 | 42 | 32 |  |
+| 7 | 8 | 6 | 8 | 56 | 48 | 42 | 64 |  |
+| 7 | 9 | 4 | 7 | 63 | 28 | 28 | 63 |  |
+| 7 | 9 | 9 | 3 | 63 | 27 | 63 | 27 | S |
+| 8 | 2 | 2 | 6 | 16 | 12 | 16 | 12 | S |
+| 8 | 2 | 3 | 8 | 16 | 24 | 24 | 16 |  |
+| 8 | 2 | 6 | 8 | 16 | 48 | 48 | 16 |  |
+| 8 | 3 | 2 | 8 | 24 | 16 | 16 | 24 |  |
+| 8 | 3 | 3 | 5 | 24 | 15 | 24 | 15 | S |
+| 8 | 3 | 8 | 7 | 24 | 56 | 64 | 21 |  |
+| 8 | 4 | 7 | 6 | 32 | 42 | 56 | 24 |  |
+| 8 | 6 | 2 | 8 | 48 | 16 | 16 | 48 |  |
+| 8 | 6 | 6 | 8 | 48 | 48 | 48 | 48 | U, S |
+| 8 | 6 | 8 | 7 | 48 | 56 | 64 | 42 |  |
+| 8 | 7 | 4 | 6 | 56 | 24 | 32 | 42 |  |
+| 8 | 7 | 7 | 3 | 56 | 21 | 56 | 21 | S |
+| 8 | 7 | 8 | 3 | 56 | 24 | 64 | 21 |  |
+| 8 | 7 | 8 | 6 | 56 | 48 | 64 | 42 |  |
+| 8 | 7 | 9 | 3 | 56 | 27 | 72 | 21 |  |
+| 8 | 8 | 3 | 7 | 64 | 21 | 24 | 56 |  |
+| 8 | 8 | 6 | 7 | 64 | 42 | 48 | 56 |  |
+| 8 | 8 | 7 | 3 | 64 | 21 | 56 | 24 |  |
+| 8 | 8 | 7 | 6 | 64 | 42 | 56 | 48 |  |
+| 8 | 9 | 7 | 3 | 72 | 21 | 56 | 27 |  |
+| 8 | 9 | 9 | 4 | 72 | 36 | 72 | 36 | S |
+| 9 | 2 | 2 | 6 | 18 | 12 | 18 | 12 | S |
+| 9 | 2 | 5 | 9 | 18 | 45 | 45 | 18 |  |
+| 9 | 3 | 3 | 9 | 27 | 27 | 27 | 27 | U, S |
+| 9 | 3 | 7 | 9 | 27 | 63 | 63 | 27 |  |
+| 9 | 3 | 8 | 7 | 27 | 56 | 72 | 21 |  |
+| 9 | 4 | 4 | 4 | 36 | 16 | 36 | 16 | S |
+| 9 | 4 | 8 | 9 | 36 | 72 | 72 | 36 |  |
+| 9 | 5 | 2 | 9 | 45 | 18 | 18 | 45 |  |
+| 9 | 5 | 5 | 7 | 45 | 35 | 45 | 35 | S |
+| 9 | 6 | 6 | 7 | 54 | 42 | 54 | 42 | S |
+| 9 | 6 | 9 | 9 | 54 | 81 | 81 | 54 |  |
+| 9 | 7 | 3 | 9 | 63 | 27 | 27 | 63 |  |
+| 9 | 7 | 7 | 4 | 63 | 28 | 63 | 28 | S |
+| 9 | 8 | 3 | 7 | 72 | 21 | 27 | 56 |  |
+| 9 | 8 | 4 | 9 | 72 | 36 | 36 | 72 |  |
+| 9 | 9 | 6 | 9 | 81 | 54 | 54 | 81 |  |
+| 9 | 9 | 9 | 6 | 81 | 54 | 81 | 54 | S |
 
-These six quadruples form the three transpose pairs $\{14, 27, 48\}$ and realize the only three values of the uniform product that are compatible with the order-1 consistency conditions (C1)–(C3).
 
 ## Appendix B: Computational details
 
