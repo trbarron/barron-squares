@@ -62,9 +62,10 @@ $$M_{i,0} \cdot M_{i,3} \;=\; 10\,M_{i,1} + M_{i,2}, \qquad M_{0,j} \cdot M_{3,j
 | 2 | $8 \times 8$ | $2 \times 2$ block | 4 digits |
 | 4 | $16 \times 16$ | $4 \times 4$ block | 8 digits |
 
-**Example 1.2.** The matrix below is a Barron Square of order 1. Horizontal and vertical separators mark the boundary between the endpoint blocks (each of width $k=1$) and the interior:
-
 ````{=typst}
+#block(breakable: false)[
+*#strong[Example 1.2.]* The matrix below is a Barron Square of order 1. Horizontal and vertical separators mark the boundary between the endpoint blocks (each of width $k=1$) and the interior:
+
 #align(center)[
 ```
 6 │ 4 2 │ 7
@@ -75,9 +76,10 @@ $$M_{i,0} \cdot M_{i,3} \;=\; 10\,M_{i,1} + M_{i,2}, \qquad M_{0,j} \cdot M_{3,j
 8 │ 6 4 │ 8
 ```
 ]
-````
 
-Verification: the rows give $6 \times 7 = 42$, $4 \times 5 = 20$, $8 \times 6 = 48$, and $8 \times 8 = 64$; the columns give $6 \times 8 = 48$, $4 \times 6 = 24$, $2 \times 4 = 08$, and $7 \times 8 = 56$. The inner zero in row 1 is permitted because it lies on a non-edge cell.
+Verification: the rows give $6 times 7 = 42$, $4 times 5 = 20$, $8 times 6 = 48$, and $8 times 8 = 64$; the columns give $6 times 8 = 48$, $4 times 6 = 24$, $2 times 4 = 08$, and $7 times 8 = 56$. The inner zero in row 1 is permitted because it lies on a non-edge cell.
+]
+````
 
 ### 1.3 Contributions
 
@@ -258,6 +260,10 @@ L(r) &= 10\,M_{2+r,0} + M_{2+r,1}, & R(r) &= 10\,M_{2+r,6} + M_{2+r,7}, \\
 T(r) &= 10\,M_{0,2+r} + M_{1,2+r}, & B(r) &= 10\,M_{6,2+r} + M_{7,2+r}.
 \end{aligned}$$
 Here $L(r)$ and $R(r)$ are the left and right endpoints of inner row $2+r$, while $T(r)$ and $B(r)$ are the top and bottom endpoints of inner column $2+r$. Each determines a four-digit interior via the Barron condition: $L(r)\cdot R(r)$ for the row and $T(r)\cdot B(r)$ for the column. These two interiors jointly fill the inner $4 \times 4$ center block $\mathrm{IC} = M_{[2,6),[2,6)}$.
+
+````{=typst}
+#pagebreak()
+````
 
 **Theorem 4.1** (Endpoint Pairing). *For every $8 \times 8$ Barron Square and every inner index $r \in \{0,1,2,3\}$, exactly one of the following cases holds:*
 
