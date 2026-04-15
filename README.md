@@ -28,7 +28,7 @@ The construction generalizes a single-row digit-multiplication puzzle from the F
 | Object | Result | Method |
 |---|---|---|
 | Order-1 ($4 \times 4$) Barron Squares | **Exactly 118 exist** | Exhaustive enumeration over $9^4 = 6{,}561$ corner quadruples |
-| Order-2 ($8 \times 8$) Barron Squares | **Exactly 1,248 exist** | Exhaustive parallel C search (BOT-derivation) over all $9^4$ top-left corners; ~50 wall-clock hours on 12 cores |
+| Order-2 ($8 \times 8$) Barron Squares | **Exactly 1,248 exist** | Exhaustive parallel C search (BOT-derivation), ~50 wall-clock hours on 12 cores; **independently verified** by a second C search using Full Corner Derivation (~161 CPU-hours) |
 | $4 \times 4 \times 4$ Barron Cubes | **None exist** | Exhaustive over $9^8 = 43{,}046{,}721$ vertex octuplets |
 | Order-4 ($16 \times 16$) | None found in $500{,}000$ random trials | Random probe only |
 
@@ -50,6 +50,9 @@ barron-squares/
 │   ├── barron_core.py             build_matrix, is_valid_barron, display
 │   ├── find_4x4.py                Complete order-1 enumeration
 │   ├── barron8x8.c                Canonical order-2 enumeration (C, BOT-derivation)
+│   ├── verify_8x8.c              Independent verification (C, Full Corner Derivation)
+│   ├── verify_8x8.py             Python validation of stored squares
+│   ├── collect_verify.py          Collect parallel verify_8x8 worker results
 │   ├── find_8x8_fast.py           Python BOT-derivation reference (not practical for full search)
 │   ├── find_nxn.py                Random search for k ≥ 3
 │   ├── barron_3d.py               4×4×4 Barron Cube enumeration
@@ -61,7 +64,8 @@ barron-squares/
     ├── 4x4_summary.json           Matches paper §3
     ├── 8x8_squares.json           All 1,248 order-2 squares, sorted
     ├── 8x8_summary.json           Matches paper §4 and §6
-    └── 8x8_raw_output/            Raw barron8x8.c per-worker output and progress logs
+    ├── 8x8_raw_output/            Raw barron8x8.c per-worker output and progress logs
+    └── verify_8x8/                Independent verification per-worker output and timing
 ```
 
 ## Reproducing the results
@@ -119,8 +123,8 @@ The paper is in reasonable shape as a self-contained preprint, but several concr
 1. **Prove Theorem 4.1 (Endpoint Pairing) algebraically.**
    Currently the theorem's support is "verified without exception across all 4,992 (square, inner-index) pairs." A referee will correctly ask for a proof. Case A is forced in self-transpose squares by $M_{i,j} = M_{j,i}$; the open case is asymmetric squares, where a derivation from the order-2 analogue of the consistency conditions (Corollary 2.2) would explain the dichotomy directly rather than as an experimental regularity. Closing this would upgrade Theorems 4.1 and 4.2 from computational observations to genuine structural theorems.
 
-2. **Independent verification of the 1,248 count.**
-   The count is produced by a single implementation (`barron8x8.c`) using the BOT-derivation reduction. An independent reimplementation — ideally a constraint-propagation or SAT/SMT encoding in Python — would corroborate the count without sharing the C search's assumptions. This is already listed as open question #1 in the paper.
+2. ~~**Independent verification of the 1,248 count.**~~ **DONE.**
+   A second C implementation (`src/verify_8x8.c`) using Full Corner Derivation (TL→TR→BL→derive BR) — structurally different from the BOT-derivation in `barron8x8.c` — confirms 1,248 across all 12 per-worker partitions. Total: ~161 CPU-hours, ~19h wall time on 12 cores. Results in `results/verify_8x8/`.
 
 3. **Register the counts with OEIS.**
    The sequence of order-$k$ counts — currently known to begin $(118, 1248, \ldots)$ — and the existence-versus-size profile for the 3D cube are natural OEIS entries. Registering them gives the paper an external citation anchor and is a near-zero-cost step with real signaling value.

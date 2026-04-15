@@ -314,7 +314,9 @@ The implementation in `src/barron8x8.c` achieves approximately $6 \times 10^7$ i
 
 ### 4.2 Numerical results
 
-The exhaustive parallel search described in §4.1 covers all $9^4 = 6{,}561$ values of TL across $12$ disjoint workers and yields exactly $1{,}248$ distinct Barron Squares of order 2. Total wall-clock time was approximately $50$ hours on a 12-core processor. In what follows we treat $1{,}248$ as the order-2 count, pending an independent verification.
+The exhaustive parallel search described in §4.1 covers all $9^4 = 6{,}561$ values of TL across $12$ disjoint workers and yields exactly $\mathbf{1{,}248}$ distinct Barron Squares of order 2. Total wall-clock time was approximately $50$ hours on a 12-core processor.
+
+**Independent verification.** A second exhaustive search using a structurally different algorithm — *Full Corner Derivation* (FCD), which takes TL, TR, BL as free variables and derives BR from edge constraints — confirms the count of $1{,}248$. The FCD implementation (`src/verify_8x8.c`) shares no code with the BOT-derivation search and uses a different decomposition of the $9^{12}$-nominal search space. Across $12$ parallel workers partitioning the $6{,}561$ TL values, every per-worker subtotal matches the corresponding count from the canonical dataset, and the grand total agrees exactly. Total verification CPU time was approximately $161$ hours ($19$ hours wall time on $12$ cores).
 
 | Metric | $4 \times 4$ | $8 \times 8$ |
 |---|---|---|

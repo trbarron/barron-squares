@@ -1,0 +1,17 @@
+verify_8x8: Independent 8x8 Barron Square enumeration
+Algorithm: Full Corner Derivation (TL -> TR -> BL -> derive BR)
+TL range: [2188, 2735) of 6561
+
+Pre-computed 3876 valid edge (L,R) pairs.
+  TL 100/547 (18.3%), found 24, 4963s elapsed
+  TL 200/547 (36.6%), found 40, 13976s elapsed
+  TL 300/547 (54.8%), found 61, 26891s elapsed
+  TL 400/547 (73.1%), found 73, 34804s elapsed
+  TL 500/547 (91.4%), found 91, 44670s elapsed
+
+========================================
+TL range: [2188, 2735)
+Squares found: 102
+CPU time:  46857.0 seconds (13.02 hours)
+Wall time: 50536 seconds (14.04 hours)
+========================================
