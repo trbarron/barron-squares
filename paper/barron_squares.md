@@ -25,7 +25,9 @@ We introduce **Barron Squares**, a family of integer-digit matrices satisfying a
 ]
 ````
 
-We completely characterize the $4 \times 4$ case, finding exactly **118** valid squares by exhaustive enumeration, and develop the algebraic consistency conditions that govern their existence. For the $8 \times 8$ case we report an exhaustive parallel search over all $9^4 = 6{,}561$ top-left corner blocks that yields **1,248** valid squares. We show computationally that **no valid $4 \times 4 \times 4$ Barron Cube exists**, verified over the full space of $9^8 = 43{,}046{,}721$ corner octuplets. The central structural result is that a Barron Square is determined entirely by its four corner blocks, reducing existence to a small system of digit-level algebraic conditions. As a second structural theorem we prove that the inner $4 \times 4$ center of every $8 \times 8$ Barron Square is symmetric — a consequence of an *endpoint pairing* property that holds without exception in the enumerated data — and we document a sharp qualitative shift between the two orders: digit 1 is forbidden as a corner at order 1 but permitted at order 2, the corner-digit distribution becomes markedly more uniform, and the self-transpose rate rises from $39\%$ to exactly $50\%$.
+We completely characterize the $4 \times 4$ case, finding exactly **118** valid squares by exhaustive enumeration, and develop the algebraic consistency conditions that govern their existence. For the $8 \times 8$ case we report an exhaustive parallel search over all $9^4 = 6{,}561$ top-left corner blocks that yields **1,248** valid squares, a count independently confirmed by a second search using a structurally distinct corner-derivation algorithm. We further show, by exhaustive enumeration over the full space of $9^8 = 43{,}046{,}721$ corner octuplets, that **no valid $4 \times 4 \times 4$ Barron Cube exists**.
+
+Structurally, the central observation is that a Barron Square is determined entirely by its four corner blocks, reducing existence to a small system of digit-level algebraic conditions. Building on this, we show that the inner $4 \times 4$ center of every $8 \times 8$ Barron Square is symmetric, as a consequence of an *endpoint pairing* dichotomy on inner rows and columns that holds without exception across all 1,248 squares. We document a sharp qualitative shift between the two orders: digit 1 is forbidden as a corner at order 1 but permitted at order 2, the corner-digit distribution becomes markedly more uniform, and the self-transpose rate rises from $39\%$ to exactly $50\%$.
 
 **Keywords.** Barron Square, digit matrix, multiplicative constraint, exhaustive enumeration, consistency conditions, recreational mathematics.
 
@@ -37,7 +39,7 @@ We completely characterize the $4 \times 4$ case, finding exactly **118** valid 
 
 ### 1.1 Motivation
 
-A single-row version of the problem first appeared as a *FiveThirtyEight Riddler Express* puzzle [1]: find a $4 \times 4$ grid of decimal digits such that every row and every column encodes a valid two-digit multiplication, with the leftmost digit times the rightmost digit equal to the two-digit number formed by the interior pair. The object is elementary to state and yet non-trivial to search: the full space of $9^4 = 6{,}561$ unconstrained corner assignments collapses, after consistency enforcement, to exactly $118$ valid boards. Small, finite answers of this kind are a classical target of *recreational number theory*, joining families such as magic squares, cross-figures, and multiplicative alphametics. What distinguishes the present object is that the constraints are simultaneously *positional* (they depend on decimal place value) and *structural* (they couple boundaries to interiors), placing it in a hybrid regime between digit puzzles and constraint satisfaction on integer grids.
+A single-row version of the problem first appeared as a *FiveThirtyEight Riddler Express* puzzle [1]: find a $4 \times 4$ grid of decimal digits such that every row and every column encodes a valid two-digit multiplication, with the leftmost digit times the rightmost digit equal to the two-digit number formed by the interior pair. The object is elementary to state and yet non-trivial to search: the full space of $9^4 = 6{,}561$ unconstrained corner assignments collapses, after consistency enforcement, to exactly $118$ valid boards. Small, finite answers of this kind are a classical target of *recreational number theory* [2, 5], joining families such as magic squares, cross-figures, and multiplicative alphametics. What distinguishes the present object is that the constraints are simultaneously *positional* (they depend on decimal place value) and *structural* (they couple boundaries to interiors), placing it in a hybrid regime between digit puzzles and constraint satisfaction on integer grids.
 
 This paper formalizes the puzzle, generalizes it to a family of order-$k$ objects of size $4k \times 4k$, and studies its structure by a combination of exhaustive enumeration and algebraic reduction.
 
@@ -83,11 +85,11 @@ Verification: the rows give $6 times 7 = 42$, $4 times 5 = 20$, $8 times 6 = 48$
 
 ### 1.3 Contributions
 
-Our results cover three aspects of Barron Squares — structure, enumeration, and higher-dimensional extension:
+Our results cover four aspects of Barron Squares — structural reduction, complete enumeration at order 1, exhaustive enumeration and new structural theorems at order 2, and higher-order / higher-dimensional behavior:
 
 1. **Structural reduction.** We prove that an order-$k$ Barron Square is completely determined by its four $k \times k$ corner blocks (Theorems 2.1 and 2.4). For the order-1 case this reduction is sharp: it yields three genuinely restrictive algebraic consistency conditions on the corners $(a,b,c,d)$, with a fourth candidate condition shown to be automatic (Proposition 2.3).
 2. **Complete enumeration at order 1.** We prove by exhaustive search that there are exactly $118$ Barron Squares of order 1 (Theorem 3.1), classify them by corner-digit frequency and transpose symmetry, identify the exclusion of digit $1$ and the parity restriction of digit $5$ as structural consequences of the constraint, and isolate a family of six *uniform-product* squares whose four edge products coincide.
-3. **Exhaustive enumeration and structure at order 2.** Using a *BOT-derivation* algorithm that reduces the effective search space from $9^{16}$ to a tractable range, we enumerate $1{,}248$ Barron Squares of order 2 by exhaustive parallel search over all $9^4 = 6{,}561$ top-left corner blocks. On this data we prove (computationally, verified without exception) two new structural results: an *endpoint pairing* dichotomy for inner rows and columns (Theorem 4.1), and, as a consequence, the *inner center symmetry* of every order-2 Barron Square (Theorem 4.2).
+3. **Exhaustive enumeration and structure at order 2.** Using a *BOT-derivation* algorithm that reduces the effective search space from $9^{16}$ to a tractable range, we enumerate $1{,}248$ Barron Squares of order 2 by exhaustive parallel search over all $9^4 = 6{,}561$ top-left corner blocks, a count we also independently verify by a second search using a structurally distinct *Full Corner Derivation* algorithm. On this data we establish two new structural results: an *endpoint pairing* dichotomy for inner rows and columns (Proposition 4.1), proven by two-case analysis combining a direct argument in the self-transpose case with a computer-assisted verification over the $624$ asymmetric squares, and, as a consequence, the *inner center symmetry* of every order-2 Barron Square (Theorem 4.2). Whether the endpoint-pairing dichotomy admits a uniform algebraic proof, or extends to higher orders $k \geq 3$, is left open.
 4. **Higher-order and higher-dimensional behavior.** We show that no $4 \times 4 \times 4$ Barron Cube exists, by exhaustive search over all $9^8 = 43{,}046{,}721$ corner octuplets (Theorem 5.2), and give a heuristic probabilistic explanation for this non-existence. We further document that $500{,}000$ random trials at order 4 ($16 \times 16$) produce no valid squares, suggesting extreme sparsity or extinction at higher orders.
 
 ### 1.4 Paper outline
@@ -316,7 +318,7 @@ The implementation in `src/barron8x8.c` achieves approximately $6 \times 10^7$ i
 
 The exhaustive parallel search described in §4.1 covers all $9^4 = 6{,}561$ values of TL across $12$ disjoint workers and yields exactly $\mathbf{1{,}248}$ distinct Barron Squares of order 2. Total wall-clock time was approximately $50$ hours on a 12-core processor.
 
-**Independent verification.** A second exhaustive search using a structurally different algorithm — *Full Corner Derivation* (FCD) — confirms the count of $1{,}248$. Where the BOT-derivation takes $(\mathrm{TL}, \mathrm{TR}, \mathrm{col}_4^{\mathrm{B}}, \mathrm{col}_5^{\mathrm{B}})$ as free variables and derives the bottom half of the matrix, the FCD algorithm takes $(\mathrm{TL}, \mathrm{TR}, \mathrm{BL})$ as free variables and derives the fourth corner $\mathrm{BR}$ by intersecting the edge-validity constraints of rows 6–7 and columns 6–7, then verifies inner-block consistency by comparing the $4 \times 4$ inner center as derived from inner rows against the one derived from inner columns. The FCD implementation (`src/verify_8x8.c`) shares no code with the BOT-derivation search. Across $12$ parallel workers partitioning the $6{,}561$ TL values, every per-worker subtotal matches the corresponding count from the canonical dataset, and the grand total agrees exactly. Total verification CPU time was approximately $161$ hours ($19$ hours wall time on $12$ cores). An additional spot check using the Z3 SMT solver with a bitvector encoding of the full $64$-variable constraint system found $10$ solutions in $\sim\!13$ hours before being terminated, each of which matched a known square.
+**Independent verification.** A second exhaustive search using a structurally different algorithm — *Full Corner Derivation* (FCD) — confirms the count of $1{,}248$. Where the BOT-derivation takes $(\mathrm{TL}, \mathrm{TR}, \mathrm{col}_4^{\mathrm{B}}, \mathrm{col}_5^{\mathrm{B}})$ as free variables and derives the bottom half of the matrix, the FCD algorithm takes $(\mathrm{TL}, \mathrm{TR}, \mathrm{BL})$ as free variables and derives the fourth corner $\mathrm{BR}$ by intersecting the edge-validity constraints of rows 6–7 and columns 6–7, then verifies inner-block consistency by comparing the $4 \times 4$ inner center as derived from inner rows against the one derived from inner columns. The FCD implementation (`src/verify_8x8.c`) shares no code with the BOT-derivation search. Across $12$ parallel workers partitioning the $6{,}561$ TL values, every per-worker subtotal matches the corresponding count from the canonical dataset, and the grand total agrees exactly. Total verification CPU time was approximately $161$ hours ($19$ hours wall time on $12$ cores). An additional spot check using the Z3 SMT solver [6] with a bitvector encoding of the full $64$-variable constraint system found $10$ solutions in $\sim\!13$ hours before being terminated, each of which matched a known square.
 
 | Metric | $4 \times 4$ | $8 \times 8$ |
 |---|---|---|
@@ -344,20 +346,77 @@ Here $L(r)$ and $R(r)$ are the left and right endpoints of inner row $2+r$, whil
 #pagebreak()
 ````
 
-**Theorem 4.1** (Endpoint Pairing). *For every $8 \times 8$ Barron Square and every inner index $r \in \{0,1,2,3\}$, exactly one of the following cases holds:*
+**Proposition 4.1** (Endpoint Pairing at order 2). *For every $8 \times 8$ Barron Square $M$ and every inner index $r \in \{0,1,2,3\}$, exactly one of the following cases holds:*
 
 - *(Case A)* $L(r) = T(r)$ *and* $R(r) = B(r)$;
 - *(Case B)* $L(r) = B(r)$ *and* $R(r) = T(r)$.
 
 *In either case $L(r)\,R(r) = T(r)\,B(r)$.*
 
-*Computational verification.* Across all $1{,}248$ order-2 Barron Squares and all $4 \times 1{,}248 = 4{,}992$ (square, inner index) pairs, Case A occurs $2{,}598$ times, Case B occurs $2{,}394$ times, and the dichotomy never fails. In self-transpose squares Case A is forced by $M_{i,j} = M_{j,i}$, which gives $M_{2+r,0} = M_{0,2+r}$ and $M_{2+r,1} = M_{1,2+r}$ and hence $L(r) = T(r)$ and $R(r) = B(r)$; a purely algebraic proof for asymmetric squares remains open. $\square$
+*Proof (case analysis).* We consider two cases on the transpose symmetry of $M$.
 
-**Theorem 4.2** (Inner Center Symmetry). *For every $8 \times 8$ Barron Square the inner center block $\mathrm{IC}$ is a symmetric $4 \times 4$ matrix: $\mathrm{IC}_{r,c} = \mathrm{IC}_{c,r}$ for all $r, c \in \{0,1,2,3\}$.*
+(i) *Self-transpose case ($M = M^\top$).* Then for each $r \in \{0,1,2,3\}$ and each $j \in \{0,1\}$ we have $M_{2+r,\,j} = M_{j,\,2+r}$, so
+$$L(r) = 10\,M_{2+r,0} + M_{2+r,1} = 10\,M_{0,2+r} + M_{1,2+r} = T(r),$$
+and similarly $M_{2+r,\,6} = M_{6,\,2+r}$ and $M_{2+r,\,7} = M_{7,\,2+r}$ give $R(r) = B(r)$. This is Case A.
 
-*Proof.* By Theorem 4.1 each inner row $r$ and its matching inner column $r$ have endpoints whose (unordered) pair coincides, so their Barron-forced four-digit interiors are equal as digit sequences. Equivalently, the $r$-th row of $\mathrm{IC}$ is equal to the $r$-th column of $\mathrm{IC}$, which is the statement of symmetry. $\square$
+(ii) *Asymmetric case ($M \neq M^\top$).* The order-2 enumeration in §4.2 yields exactly $624$ asymmetric Barron Squares (see Table of §4.3 case-pattern distribution below). We verify the dichotomy directly by computing $L(r), R(r), T(r), B(r)$ for each of the $4$ inner indices of each of the $624$ asymmetric squares, a total of $2{,}496$ (square, inner-index) pairs: in every pair, exactly one of Case A or Case B holds (Case A: $102$ pairs; Case B: $2{,}394$ pairs). The computation takes under a second; the verification script is included in the accompanying code.
 
-**Corollary 4.3.** *The transpose-symmetry rate of order-2 Barron Squares is bounded below by the endpoint-pairing distribution: every square in which Case A holds at every inner index and whose edge rows and columns are consistent under transposition is itself self-transpose.* This gives a structural reason (though not a closed-form explanation) for the elevated $\sim\!50\%$ self-transpose rate observed in §4.2.
+Combining (i) and (ii) across all $1{,}248$ squares: Case A occurs $2{,}598$ times, Case B occurs $2{,}394$ times, and the dichotomy never fails. $\square$
+
+**Remark 4.1a** (Scope of Proposition 4.1). The proof of (ii) is computer-assisted and valid only for order $k = 2$; it rests on the exhaustive enumeration of §4.2. Whether the analogous statement holds at higher orders — that is, whether the inner-band endpoints of an order-$k$ Barron Square always pair into a Case A / Case B dichotomy with respect to the corresponding edge bands — is formulated as Conjecture 6.1 in §6.2 and remains open. A uniform algebraic proof, i.e., one independent of the enumeration, is likewise open even at order 2.
+
+**Theorem 4.2** (Inner Center Symmetry at order 2). *For every $8 \times 8$ Barron Square the inner center block $\mathrm{IC}$ is a symmetric $4 \times 4$ matrix: $\mathrm{IC}_{r,c} = \mathrm{IC}_{c,r}$ for all $r, c \in \{0,1,2,3\}$.*
+
+*Proof.* By Proposition 4.1 each inner row $r$ and its matching inner column $r$ have endpoints whose (unordered) pair coincides, so their Barron-forced four-digit interiors are equal as digit sequences. Equivalently, the $r$-th row of $\mathrm{IC}$ is equal to the $r$-th column of $\mathrm{IC}$, which is the statement of symmetry. $\square$
+
+**Corollary 4.3** (Necessary condition for transpose symmetry). *If an order-2 Barron Square $M$ is self-transpose, then Case A of Proposition 4.1 holds at every inner index $r \in \{0,1,2,3\}$.*
+
+*Proof.* If $M = M^\top$ then $M_{2+r,\,j} = M_{j,\,2+r}$ for each $j \in \{0,1\}$ and each $r \in \{0,1,2,3\}$, so $L(r) = T(r)$ and $R(r) = B(r)$. $\square$
+
+In particular, every one of the $624$ self-transpose squares contributes to Case A at all four inner indices, accounting for $4 \times 624 = 2{,}496$ of the $2{,}598$ observed Case-A inner-index pairs. The remaining $102$ Case-A pairs arise from asymmetric squares, so Case A at every inner index is a *necessary* but not *sufficient* condition for self-transpose. The tight empirical split $624 / 624$ between self-transpose and asymmetric squares is left as Open Question 4 in §6.2.
+
+The full distribution of (transpose-class, per-inner-index case pattern) across the $1{,}248$ squares is the following:
+
+| Transpose class | Pattern | Count |
+|---|---|---|
+| Self-transpose | AAAA | $624$ |
+| Asymmetric | BBBB | $522$ |
+| Asymmetric | ABBB | $56$ |
+| Asymmetric | BBBA | $22$ |
+| Asymmetric | BABB | $14$ |
+| Asymmetric | BBAB | $10$ |
+
+Every self-transpose square is AAAA; no asymmetric square is AAAA; and the dichotomy of Proposition 4.1 never fails. The $522$ purely-Case-B asymmetric squares are the natural counterpart to the AAAA self-transpose family.
+
+*Case B example.* The following is one of the $522$ asymmetric squares in which Case B holds at every inner index. It is displayed in the same format as Example 1.2 and §4.4:
+
+````{=typst}
+#align(center)[
+```
+1 4 │ 1 3 8 6 │ 9 9
+8 4 │ 8 1 4 8 │ 9 7
+────┼─────────┼────
+1 3 │ 0 2 3 4 │ 1 8
+7 4 │ 2 2 9 4 │ 3 1
+4 7 │ 3 9 4 8 │ 8 4
+6 6 │ 4 4 8 8 │ 6 8
+────┼─────────┼────
+9 7 │ 1 7 4 6 │ 1 8
+7 9 │ 3 4 7 6 │ 4 4
+```
+]
+````
+
+The row products ($14 \times 99 = 1386$, $84 \times 97 = 8148$, $13 \times 18 = 234$, $74 \times 31 = 2294$, $47 \times 84 = 3948$, $66 \times 68 = 4488$, $97 \times 18 = 1746$, $79 \times 44 = 3476$) and column products ($18 \times 97 = 1746$, $44 \times 79 = 3476$, $18 \times 13 = 234$, $31 \times 74 = 2294$, $84 \times 47 = 3948$, $68 \times 66 = 4488$, $99 \times 14 = 1386$, $97 \times 84 = 8148$) verify directly. The inner-band endpoints $L(r), R(r), T(r), B(r)$ are as follows:
+
+| $r$ | $L(r)$ | $R(r)$ | $T(r)$ | $B(r)$ | Pairing |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| $0$ | $13$ | $18$ | $18$ | $13$ | Case B ($L=B$, $R=T$) |
+| $1$ | $74$ | $31$ | $31$ | $74$ | Case B |
+| $2$ | $47$ | $84$ | $84$ | $47$ | Case B |
+| $3$ | $66$ | $68$ | $68$ | $66$ | Case B |
+
+At every inner index the row-endpoint pair $(L, R)$ equals the column-endpoint pair $(T, B)$ reversed, and correspondingly the inner $4 \times 4$ center block agrees with its transpose (Theorem 4.2). Note that the square is *not* self-transpose — the corner blocks differ, $\mathrm{TL} = \left[\begin{smallmatrix}1 & 4 \\ 8 & 4\end{smallmatrix}\right] \neq \left[\begin{smallmatrix}1 & 8 \\ 4 & 4\end{smallmatrix}\right] = \mathrm{TL}^\top$ — yet the inner center symmetry forced by Proposition 4.1 still holds.
 
 ### 4.4 An 8×8 example
 
@@ -380,7 +439,7 @@ The following is a Barron Square of order 2, displayed in the same format as Exa
 ]
 ````
 
-Verification (row products): $12\times93=1116$, $23\times72=1656$, $11\times91=1001$, $16\times39=624$ (as "0624"), $15\times15=225$ (as "0225"), $66\times22=1452$, $97\times96=9312$, $32\times61=1952$. All rows and columns verified.
+Verification (row products): $12\times93=1116$, $23\times72=1656$, $11\times91=1001$, $16\times39=624$, $15\times15=225$, $66\times22=1452$, $97\times96=9312$, $32\times61=1952$. Interiors are padded to the full $2k = 4$ digits with leading zeros when the product has fewer than four digits — so row 3 writes the 3-digit product $624$ as $\mathtt{0624}$ across cells $(3,2)$–$(3,5)$, and row 4 writes $225$ as $\mathtt{0225}$. Leading zeros are permitted in these positions because they are inner (non-edge) cells. All rows and columns verified.
 
 ---
 
@@ -396,9 +455,11 @@ At order $k = 1$ the object is a $4 \times 4 \times 4$ array whose $48$ axis-ali
 
 *Proof.* Exhaustive enumeration over the full $9^8 = 43{,}046{,}721$-element space of vertex assignments (each vertex in $\{1, \ldots, 9\}$), propagating along each axis and checking consistency at every shared cell, produces zero valid cubes. The computation takes approximately $33.6$ minutes in the reference Python implementation `src/barron_3d.py`. $\square$
 
-**Remark 5.3** (Heuristic probability argument). A $4 \times 4 \times 4$ Barron Cube requires all $6$ face squares (along with all $12$ axis-aligned interior lines) to satisfy the order-1 Barron condition simultaneously. The density of valid order-1 corner quadruples is $118 / 9^4 \approx 1.8 \times 10^{-2}$. Of the $8$ cube vertices, each of the $6$ faces uses $4$, and the faces share vertices in a pattern that gives roughly $3$ effective degrees of independence. Treating face validities as approximately independent after this adjustment gives an expected count of valid cubes of order
-$$9^8 \cdot (118 / 9^4)^3 \;\approx\; 4.3 \times 10^7 \cdot 5.8 \times 10^{-6} \;\approx\; 0.25,$$
-consistent with the exhaustive finding of zero. The heuristic is not a proof of non-existence, and an algebraic proof remains open.
+**Remark 5.3** (Heuristic probability argument). A $4 \times 4 \times 4$ Barron Cube must simultaneously satisfy (i) all $6$ face-squares being valid order-$1$ Barron Squares and (ii) three-way axis consistency at each of the $8$ cube-interior cells, where the $x$-, $y$-, and $z$-axis lines through the cell independently determine its value.
+
+For a *single* face, the probability that $4$ vertices sampled uniformly from $\{1,\ldots,9\}^4$ form a valid order-$1$ corner quadruple is $p = 118 / 9^4 \approx 1.8 \times 10^{-2}$. The $6$ faces pair into $3$ *opposite-face* pairs, each pair using disjoint vertex quadruples; within a pair the two face-validity events are independent, but the $3$ pairs overlap through shared vertices. Under the simplifying — and optimistic — assumption that the $3$ opposite-face pairs are themselves independent, the expected number of $8$-vertex assignments satisfying the $6$ face-validity conditions alone is approximately
+$$9^8 \cdot p^{3} \;=\; \frac{118^{3}}{9^{4}} \;\approx\; 250.$$
+This is an *upper-bound* heuristic: it ignores both the positive correlation between opposite-face pairs and the additional $8$ cube-interior consistency conditions of constraint (ii), each of which imposes a three-way digit-agreement with a naive probability on the order of $10^{-2}$. Applying even a fraction of the interior constraints drops the expected count by many orders of magnitude, making the exhaustive finding of zero qualitatively consistent with a fully-coupled expectation well below $1$. The heuristic is not a proof; an algebraic non-existence argument remains open as Question 2 of §6.2.
 
 **Corollary 5.4.** *The Barron Cube construction is not a faithful dimensional lift of the Barron Square: $118$ order-1 Barron Squares exist, but no order-1 Barron Cube extends any subset of them to three dimensions.*
 
@@ -434,9 +495,17 @@ The order-2 distribution is markedly more uniform (range $8.1\%$–$13.5\%$) tha
 | $|G| = 2$ (transpose only) | $46$ ($39.0\%$) | $624$ ($50.0\%$) |
 | $|G| \geq 4$ | $0$ | $0$ |
 
-The $8 \times 8$ count splits exactly evenly into asymmetric and transpose-symmetric squares. Theorems 4.1 and 4.2 explain part of the order-2 rise: the endpoint pairing dichotomy forces the inner $4 \times 4$ center to be symmetric, which is a *necessary* condition for full-matrix transpose symmetry. Consistent with this, every self-transpose square at order 2 is in Case A of Theorem 4.1 at every inner index, and Case A accounts for $2{,}598$ of the $4{,}992$ observed (square, inner index) pairs — well above the $2{,}394$ of Case B.
+The $8 \times 8$ count splits exactly evenly into asymmetric and transpose-symmetric squares. Proposition 4.1 and Theorem 4.2 explain part of the order-2 rise: the endpoint pairing dichotomy forces the inner $4 \times 4$ center to be symmetric, which is a *necessary* condition for full-matrix transpose symmetry. Consistent with this, every self-transpose square at order 2 is in Case A of Proposition 4.1 at every inner index, and Case A accounts for $2{,}598$ of the $4{,}992$ observed (square, inner index) pairs — well above the $2{,}394$ of Case B.
 
-*Product structure.* At order 1 the $22$ valid edge products are exactly the two-digit numbers in $[10, 81]$ with no zero digit. At order 2 the valid edge products are four-digit numbers in $[1000, 9801]$ with no zero digit; interiors may contain zeros (only the edge cells are zero-restricted). The order-1 distribution is concentrated: the top two products $12$ and $16$ each occur $48$ times over $118 \times 4 = 472$ edge positions, a frequency of $10.2\%$. At order 2 the most common product, $1892$, occurs only $80$ times over $1{,}248 \times 8 = 9{,}984$ edge positions — a frequency of $0.8\%$. The factor-of-$\sim\!13$ drop in peak product frequency reflects the much larger pool of valid four-digit products.
+*Product structure.* At order 1 the $22$ valid edge products are exactly the two-digit numbers in $[10, 81]$ with no zero digit. At order 2 the valid edge products are four-digit numbers in $[1000, 9801]$ with no zero digit; interiors may contain zeros (only the edge cells are zero-restricted). The order-2 data exhibits $668$ distinct edge-product values over $1{,}248 \times 8 = 9{,}984$ total edge positions. The distribution is substantially flatter than at order 1: the top two order-1 products $12$ and $16$ each occur $48$ times over $118 \times 4 = 472$ positions (each a frequency of $10.2\%$), whereas the most common order-2 product, $1892$, occurs only $80$ times — a frequency of $0.8\%$. The factor-of-$\sim\!13$ drop in peak product frequency reflects the much larger pool of valid four-digit products. The top fifteen order-2 edge products are shown below; no product dominates the distribution the way $12$ and $16$ do at order 1.
+
+| Rank | Product | Count | Rank | Product | Count | Rank | Product | Count |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+|  1 | $1892$ | $80$ |  6 | $2475$ | $56$ | 11 | $1632$ | $48$ |
+|  2 | $1782$ | $72$ |  7 | $3168$ | $56$ | 12 | $1365$ | $48$ |
+|  3 | $1596$ | $64$ |  8 | $1197$ | $56$ | 13 | $2496$ | $48$ |
+|  4 | $2376$ | $64$ |  9 | $1274$ | $48$ | 14 | $1155$ | $40$ |
+|  5 | $1116$ | $56$ | 10 | $1224$ | $48$ | 15 | $3243$ | $40$ |
 
 *Information flow.* The corner blocks are the only genuine degrees of freedom: by Theorem 2.4 every other cell is a deterministic function of the four corner blocks. The data-processing inequality then gives, in the ensemble of order-$k$ Barron Squares under the uniform distribution,
 $$H(\text{corner cell}) \;\geq\; H(\text{edge cell}) \;\geq\; H(\text{inner cell}),$$
@@ -446,21 +515,20 @@ where $H$ denotes Shannon entropy. The boundary acts as a lossy channel to the i
 
 Several natural questions are left unresolved.
 
-1. **Independent verification at order 2.** *(Resolved.)* The count of $1{,}248$ has been confirmed by a second exhaustive search using the Full Corner Derivation algorithm (§4.2), which is structurally independent of the BOT-derivation. Per-worker subtotals match across all $12$ partitions. A Z3 bitvector SMT encoding provides additional partial corroboration.
-2. **Algebraic proof of Theorem 4.1 (Endpoint Pairing).** The Case A / Case B dichotomy is verified without exception across all $4{,}992$ observed (square, inner index) pairs but has no closed-form proof. A derivation from the order-2 analogue of the consistency conditions (Corollary 2.2) would explain the dichotomy directly, rather than as an experimental regularity, and would in particular give Theorem 4.2 a fully algebraic proof.
-3. **Algebraic proof of Theorem 5.2 (no $4 \times 4 \times 4$ Barron Cube).** The heuristic estimate of $\sim\!0.25$ expected cubes is suggestive but not rigorous. A proof would amount to showing that the three-dimensional consistency system has no digit solutions, presumably by a pigeonhole or residue argument on the shared vertices and edges.
-4. **Asymptotic growth in $k$.** The $k = 1 \to k = 2$ transition shows growth by roughly an order of magnitude ($118 \to 1{,}248$), but a random probe of $5 \times 10^5$ configurations at $k = 4$ ($16 \times 16$) finds no valid square. Does the Barron family go extinct at some finite $k$, or does it become extremely sparse but non-empty? An exhaustive or targeted search at $k = 3$ ($12 \times 12$) would sharpen the trend.
-5. **Transpose-symmetry rate.** The order-2 self-transpose rate is exactly $50.0\%$, substantially above the order-1 rate of $39\%$. Theorems 4.1 and 4.2 give a partial explanation — Case A implies row/column alignment at every inner index — but do not predict the exact rate, and in particular do not explain the remarkable precise split $624 / 624$.
-6. **Base dependence.** The construction is tied to base $10$ through its use of place value. How does the count of Barron Squares depend on the base $b$? Bases $b \in \{2, \ldots, 9\}$ each yield a finite, computable problem at order 1, and bases $12$ or $16$ offer enough room to test whether the qualitative order-1 / order-2 story survives.
-7. **Alternative operations.** The multiplicative constraint can be replaced by $L + R = I$ (additive) or $L^2 = I$ (square), among others. The multiplicative form appears special: the additive form is much less constrained and yields infinite families, while most non-multiplicative operations yield either empty or trivial sets.
+1. **Uniform algebraic proof of Proposition 4.1 (Endpoint Pairing), and extension to higher orders.** At order 2 the asymmetric case of Proposition 4.1 is established by direct enumeration over the $624$ asymmetric Barron Squares; a *uniform* algebraic derivation — one that does not depend on the enumeration — is open even at order 2. More strongly, **Conjecture 6.1** (Endpoint Pairing, general order). *For every order-$k$ Barron Square and every inner-band index $r \in \{0, 1, \ldots, 2k-1\}$, the row-endpoint pair $(L(r), R(r))$ and the column-endpoint pair $(T(r), B(r))$ coincide as unordered multisets.* A proof of Conjecture 6.1 from the order-$k$ analogue of the consistency conditions (Corollary 2.2) would in particular give Theorem 4.2 an enumeration-free proof and would extend Inner Center Symmetry to all orders.
+2. **Algebraic proof of Theorem 5.2 (no $4 \times 4 \times 4$ Barron Cube).** The heuristic estimate of $\sim\!0.25$ expected cubes is suggestive but not rigorous. A proof would amount to showing that the three-dimensional consistency system has no digit solutions, presumably by a pigeonhole or residue argument on the shared vertices and edges.
+3. **Asymptotic growth in $k$.** The $k = 1 \to k = 2$ transition shows growth by roughly an order of magnitude ($118 \to 1{,}248$), but a random probe of $5 \times 10^5$ configurations at $k = 4$ ($16 \times 16$) finds no valid square. Does the Barron family go extinct at some finite $k$, or does it become extremely sparse but non-empty? An exhaustive or targeted search at $k = 3$ ($12 \times 12$) would sharpen the trend.
+4. **Transpose-symmetry rate.** The order-2 self-transpose rate is exactly $50.0\%$, substantially above the order-1 rate of $39\%$. Proposition 4.1 and Theorem 4.2 give a partial explanation — Case A implies row/column alignment at every inner index — but do not predict the exact rate, and in particular do not explain the remarkable precise split $624 / 624$.
+5. **Base dependence.** The construction is tied to base $10$ through its use of place value. How does the count of Barron Squares depend on the base $b$? Bases $b \in \{2, \ldots, 9\}$ each yield a finite, computable problem at order 1, and bases $12$ or $16$ offer enough room to test whether the qualitative order-1 / order-2 story survives. The resulting count sequences — together with the order-$k$ count sequence at base $10$, currently known to begin $(118, 1{,}248, \ldots)$ — are natural OEIS entries [7].
+6. **Alternative operations.** The multiplicative constraint can be replaced by $L + R = I$ (additive) or $L^2 = I$ (square), among others. The multiplicative form appears special: the additive form is much less constrained and yields infinite families, while most non-multiplicative operations yield either empty or trivial sets.
 
 ### 6.3 Concluding remarks
 
 Barron Squares are a small, self-contained corner of recreational number theory that nonetheless exhibit enough structure to support a full paper of theorems and enumerations. The central structural observation — Theorem 2.4, that an order-$k$ Barron Square is completely determined by its four $k \times k$ corner blocks — reduces existence to a system of digit-level consistency conditions on those corners, which are cleanly explicit at order 1 (Corollary 2.2) and cleanly algorithmic at order 2 (the BOT-derivation search of §4.1).
 
-The order-1 case is tight: exactly $118$ squares exist, digit $1$ is structurally excluded from corners, digit $5$ is restricted to odd partners, and $39\%$ of squares are self-transpose. The order-2 case is looser in every respect: the count grows by an order of magnitude (to $1{,}248$), all nine digits appear as corners, and the corner distribution approaches uniformity. Yet order 2 also introduces new rigidity: every $8 \times 8$ Barron Square has a symmetric inner $4 \times 4$ center (Theorem 4.2), forced by an endpoint pairing dichotomy (Theorem 4.1) that holds without exception in $1{,}248$ tested cases. These two theorems are the paper's main new structural results.
+The order-1 case is tight: exactly $118$ squares exist, digit $1$ is structurally excluded from corners, digit $5$ is restricted to odd partners, and $39\%$ of squares are self-transpose. The order-2 case is looser in every respect: the count grows by an order of magnitude (to $1{,}248$), all nine digits appear as corners, and the corner distribution approaches uniformity. Yet order 2 also introduces new rigidity: every $8 \times 8$ Barron Square has a symmetric inner $4 \times 4$ center (Theorem 4.2), forced by an endpoint-pairing dichotomy (Proposition 4.1) that holds across all $1{,}248$ squares via a two-case proof — direct in the self-transpose half, computer-assisted in the asymmetric half. These are the paper's main new structural results.
 
-The three-dimensional generalization collapses completely: no $4 \times 4 \times 4$ Barron Cube exists, consistent with a heuristic expected count of $\sim\!0.25$. Whether order-$k$ Barron Squares themselves eventually vanish as $k$ grows is — together with an algebraic proof of the endpoint pairing theorem — the most interesting question left open.
+The three-dimensional generalization collapses completely: no $4 \times 4 \times 4$ Barron Cube exists. The corrected heuristic expected count — approximately $250$ from face-validity alone, and far lower after the cube-interior consistency conditions are imposed — is qualitatively consistent with the exhaustive finding of zero without explaining it proof-theoretically. Whether order-$k$ Barron Squares themselves eventually vanish as $k$ grows is — together with a uniform algebraic proof of the endpoint-pairing dichotomy (Conjecture 6.1) and its extension to higher orders — the most interesting question left open.
 
 ---
 
@@ -470,13 +538,16 @@ The three-dimensional generalization collapses completely: no $4 \times 4 \times
 2. W. W. Rouse Ball and H. S. M. Coxeter, *Mathematical Recreations and Essays*, 13th ed., Dover, 1987. [Classical reference for magic squares and multiplicative digit puzzles.]
 3. D. E. Knuth, *The Art of Computer Programming, Volume 4: Combinatorial Algorithms*, Addison-Wesley, 2011. [Constraint satisfaction and exact cover methods underlying the enumeration algorithms used here.]
 4. P. J. Cameron, *Combinatorics: Topics, Techniques, Algorithms*, Cambridge University Press, 1994. [Symmetry groups acting on combinatorial objects, as used in §3.3 and §6.1.]
-5. T. Barron, *Barron Squares source code and data*, GitHub repository, available at <https://github.com/trbarron/barron-squares>. Python and C implementations referenced throughout §3, §4, and §5, together with the canonical enumeration output in `results/`.
+5. R. K. Guy, *Unsolved Problems in Number Theory*, 3rd ed., Springer-Verlag, 2004. [Standard reference for digit-pattern and radix-representation problems in the style of §3 and §6.2.]
+6. L. de Moura and N. Bjørner, *Z3: An Efficient SMT Solver*, in *Tools and Algorithms for the Construction and Analysis of Systems* (TACAS 2008), LNCS 4963, Springer, 2008, pp. 337–340. [SMT solver used for the auxiliary bitvector spot-check in §4.2.]
+7. OEIS Foundation Inc., *The On-Line Encyclopedia of Integer Sequences*, available at <https://oeis.org>. [Registration of the order-$k$ count sequence $(118, 1248, \ldots)$ is a natural follow-on item, noted in §6.2.]
+8. T. Barron, *Barron Squares source code and data*, GitHub repository, available at <https://github.com/trbarron/barron-squares>. Python and C implementations referenced throughout §3, §4, and §5, together with the canonical enumeration output in `results/`.
 
 ---
 
-## Appendix A: Order-1 corner quadruples
+## Appendix A: Complete classification of order-1 Barron Squares
 
-All $118$ valid corner quadruples $(a, b, c, d) = (TL, TR, BL, BR)$ at order 1, sorted by $(a, b, c, d)$. The Notes column marks self-transpose squares (S) and uniform-product squares (U); see §3.3 and §3.4.
+All $118$ order-1 Barron Squares, identified by their corner quadruple $(a, b, c, d) = (\mathrm{TL}, \mathrm{TR}, \mathrm{BL}, \mathrm{BR})$ (by Theorem 2.1 the corner quadruple determines the full square). Rows are sorted lexicographically by $(a, b, c, d)$; the four edge-product columns ($ab, cd, ac, bd$) give the two-digit values placed in the interiors of the four edges. The Notes column marks self-transpose squares (S) and uniform-product squares (U); see §3.3 and §3.4.
 
 | $a$ | $b$ | $c$ | $d$ | $ab$ | $cd$ | $ac$ | $bd$ | Notes |
 |---|---|---|---|---|---|---|---|---|
