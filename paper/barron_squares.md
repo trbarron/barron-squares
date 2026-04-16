@@ -115,8 +115,8 @@ M_{1,3} = t(bd), & M_{2,3} = u(bd).
 \end{array}$$
 *The four inner cells are then forced by both the inner rows and the inner columns:*
 $$\begin{array}{ll}
-M_{1,1} = t\!\left(M_{1,0}\,M_{1,3}\right) = t\!\left(M_{0,1}\,M_{3,1}\right), & M_{1,2} = u\!\left(M_{1,0}\,M_{1,3}\right) = t\!\left(M_{0,2}\,M_{3,2}\right), \\[0.25em]
-M_{2,1} = t\!\left(M_{2,0}\,M_{2,3}\right) = u\!\left(M_{0,1}\,M_{3,1}\right), & M_{2,2} = u\!\left(M_{2,0}\,M_{2,3}\right) = u\!\left(M_{0,2}\,M_{3,2}\right).
+M_{1,1} = t(M_{1,0}\,M_{1,3}) = t(M_{0,1}\,M_{3,1}), & M_{1,2} = u(M_{1,0}\,M_{1,3}) = t(M_{0,2}\,M_{3,2}), \\[0.25em]
+M_{2,1} = t(M_{2,0}\,M_{2,3}) = u(M_{0,1}\,M_{3,1}), & M_{2,2} = u(M_{2,0}\,M_{2,3}) = u(M_{0,2}\,M_{3,2}).
 \end{array}$$
 
 *Proof.* Apply row 0's Barron condition: $ab = \mathrm{val}(M_{0,0})\cdot\mathrm{val}(M_{0,3})$ must equal the two-digit number $10\,M_{0,1} + M_{0,2}$, so $M_{0,1} = t(ab)$ and $M_{0,2} = u(ab)$. The same argument applied to row 3 and to columns 0 and 3 gives the eight edge cells displayed in the first block.
@@ -198,14 +198,14 @@ giving $M_{1,1} = t(t(ac)\,t(bd))$ and $M_{1,2} = u(t(ac)\,t(bd))$. Row 2 and th
 The forcing in Theorem 2.1 pins each inner cell *twice* — once by its row and once by its column — so $M$ is a genuine Barron Square only when the two determinations agree.
 
 **Corollary 2.2** (Algebraic consistency conditions for order 1). *A quadruple of non-zero digits $(a,b,c,d)$ extends to a $4 \times 4$ Barron Square if and only if all four edge products $ab, cd, ac, bd$ have non-zero tens and units digits and the following three identities hold:*
-$$t\!\left(t(ac)\cdot t(bd)\right) \;=\; t\!\left(t(ab)\cdot t(cd)\right) \tag{C1}$$
-$$u\!\left(t(ac)\cdot t(bd)\right) \;=\; t\!\left(u(ab)\cdot u(cd)\right) \tag{C2}$$
-$$t\!\left(u(ac)\cdot u(bd)\right) \;=\; u\!\left(t(ab)\cdot t(cd)\right) \tag{C3}$$
+$$t(t(ac)\cdot t(bd)) \;=\; t(t(ab)\cdot t(cd)) \tag{C1}$$
+$$u(t(ac)\cdot t(bd)) \;=\; t(u(ab)\cdot u(cd)) \tag{C2}$$
+$$t(u(ac)\cdot u(bd)) \;=\; u(t(ab)\cdot t(cd)) \tag{C3}$$
 
 *Proof.* Each equation equates the row-determination and column-determination of one of the four inner cells: (C1) corresponds to $M_{1,1}$, (C2) to $M_{1,2}$, and (C3) to $M_{2,1}$. The no-zero-edge condition is exactly the requirement that each of $ab, cd, ac, bd$ be a two-digit number with no zero digit. $\square$
 
 **Proposition 2.3** (Automatic fourth condition). *The candidate consistency equation for $M_{2,2}$, namely*
-$$u\!\left(u(ac)\cdot u(bd)\right) \;=\; u\!\left(u(ab)\cdot u(cd)\right), \tag{C4}$$
+$$u(u(ac)\cdot u(bd)) \;=\; u(u(ab)\cdot u(cd)), \tag{C4}$$
 *is satisfied for every choice of digits $(a,b,c,d)$.*
 
 *Proof.* For any integers $x,y$, $u(x)\,u(y) \equiv x\,y \pmod{10}$, so $u(u(x)\,u(y)) = u(xy)$. Applying this twice,
@@ -545,9 +545,34 @@ The three-dimensional generalization collapses completely: no $4 \times 4 \times
 
 ---
 
-## Appendix A: Complete classification of order-1 Barron Squares
+## Appendix A: Representative order-1 Barron Squares
 
-All $118$ order-1 Barron Squares, identified by their corner quadruple $(a, b, c, d) = (\mathrm{TL}, \mathrm{TR}, \mathrm{BL}, \mathrm{BR})$ (by Theorem 2.1 the corner quadruple determines the full square). Rows are sorted lexicographically by $(a, b, c, d)$; the four edge-product columns ($ab, cd, ac, bd$) give the two-digit values placed in the interiors of the four edges. The Notes column marks self-transpose squares (S) and uniform-product squares (U); see §3.3 and §3.4.
+The complete list of all $118$ order-1 Barron Squares is available in machine-readable form as `results/4x4_squares.json` in the project repository [8]. By Theorem 2.1 each square is uniquely determined by its corner quadruple $(a,b,c,d) = (\mathrm{TL},\mathrm{TR},\mathrm{BL},\mathrm{BR})$, so the dataset is effectively a list of valid quadruples. The structural properties of the full set are summarized in §3.1–§3.4: digit $1$ is excluded and digit $5$ is restricted (Propositions 3.2–3.3), $46$ of the $118$ squares are self-transpose, the $22$ zero-free two-digit products that appear as edge values are enumerated in §3.2, and the six uniform-product squares are listed in §3.4.
+
+Example 1.2 displays one canonical square. Below are three additional representatives, chosen to exhibit structural diversity — all three are asymmetric (not self-transpose), none are uniform-product, and they span a range of corner-digit patterns:
+
+````{=typst}
+#align(center)[
+```
+4 │ 1 6 │ 4          5 │ 3 5 │ 7          6 │ 2 4 │ 4
+──┼─────┼──          ──┼─────┼──          ──┼─────┼──
+2 │ 0 2 │ 1          4 │ 1 2 │ 3          4 │ 1 2 │ 3
+4 │ 2 4 │ 6          5 │ 2 5 │ 5          2 │ 0 4 │ 2
+──┼─────┼──          ──┼─────┼──          ──┼─────┼──
+6 │ 2 4 │ 4          9 │ 4 5 │ 5          7 │ 5 6 │ 8
+
+   (a)                    (b)                    (c)
+```
+]
+````
+
+Corner quadruples: (a) $(4,4,6,4)$; (b) $(5,7,9,5)$; (c) $(6,4,7,8)$. Row and column products are verified by direct arithmetic; e.g., in (b), row 0 gives $5 \cdot 7 = 35$ and column 3 gives $7 \cdot 5 = 35$.
+
+Readers seeking the full enumeration or wishing to reproduce any derived statistic can load `results/4x4_squares.json` directly or regenerate it in under a second via `python src/find_4x4.py`.
+
+<!--
+
+Legacy full 118-row table (preserved below as an HTML comment in the Markdown source; not rendered in the PDF). To restore the printed appendix, remove the surrounding comment markers.
 
 | $a$ | $b$ | $c$ | $d$ | $ab$ | $cd$ | $ac$ | $bd$ | Notes |
 |---|---|---|---|---|---|---|---|---|
@@ -669,6 +694,8 @@ All $118$ order-1 Barron Squares, identified by their corner quadruple $(a, b, c
 | 9 | 8 | 4 | 9 | 72 | 36 | 36 | 72 |  |
 | 9 | 9 | 6 | 9 | 81 | 54 | 54 | 81 |  |
 | 9 | 9 | 9 | 6 | 81 | 54 | 81 | 54 | S |
+
+-->
 
 
 ## Appendix B: Computational details

@@ -1,0 +1,104 @@
+---
+title: Barron Squares
+date: 2026-04-16
+---
+
+## The Problem
+
+A while back *FiveThirtyEight*'s **Riddler Express** column posed a small digit puzzle: find a single row of four decimal digits where the leftmost digit times the rightmost digit equals the two-digit number in the middle. Something like `6 · 7 = 42`, read off left to right as the digits `6, 4, 2, 7`.
+
+I couldn't stop thinking about the two-dimensional version. What if every row *and* every column had to obey the same rule? The object you get is an integer-digit matrix satisfying a multiplicative boundary condition on both axes at once. I started calling them **Barron Squares**, and this post is the short tour. The full paper is [here](/barron_squares.pdf); the code and datasets are [on GitHub](https://github.com/trbarron/barron-squares).
+
+Here's a canonical 4×4 example. Read every row as `left · right = middle`, then do the same for every column:
+
+```
+6 │ 4 2 │ 7
+──┼─────┼──
+4 │ 2 0 │ 5
+8 │ 4 8 │ 6
+──┼─────┼──
+8 │ 6 4 │ 8
+```
+
+Rows: `6·7=42`, `4·5=20`, `8·6=48`, `8·8=64`. Columns: `6·8=48`, `4·6=24`, `2·4=08`, `7·8=56`. The inner zero in row 1 is fine because the rule only forbids zeros on the outermost rows and columns.
+
+## Generalizing
+
+The natural generalization is a **Barron Square of order k**: a `4k × 4k` matrix of decimal digits where every row and every column satisfies
+
+> the k-digit number on the left, times the k-digit number on the right, equals the 2k-digit number in the middle.
+
+So order 1 is the 4×4 above. Order 2 is an 8×8 grid where the first two digits of each row times the last two digits equals the middle four digits. Order 4 would be 16×16. No zeros are allowed in the outermost *k* rows and columns, otherwise the "left" or "right" block wouldn't parse as a real k-digit number.
+
+The obvious question: how many of these exist at each order?
+
+## Order 1: all 118 squares
+
+At order 1 the search space is small — you only need to pick four corner digits, since the rest of the square is determined by the row and column products. That's `9⁴ = 6,561` corner quadruples to test, and a few lines of Python knocks it out in under a second:
+
+**There are exactly 118 Barron Squares of order 1.**
+
+A few things fall out of looking at the full list:
+
+- **Digit 1 never appears as a corner.** If 1 is a corner, then `1 · anything = that thing`, which is a single digit, not a two-digit interior.
+- **Digit 5 is heavily constrained.** 5 can only pair with odd digits `{3, 5, 7, 9}`, because `5 · even ≡ 0 (mod 10)` would force a forbidden zero.
+- **46 of the 118 squares (39%) are self-transpose.** None have rotational symmetry.
+- **Six squares are *uniform-product*** — all four edge products are equal. They're built from the three self-paired products `14·14=196`, `27·27=729`, `48·48=2304`, plus transpose partners.
+
+## Order 2: 1,248 squares, and it took real compute
+
+Order 2 is where it gets hard. The brute-force space is `9¹⁶ ≈ 1.8·10¹⁵` — hopeless. But the same corner-determination structure applies: once you fix the four 2×2 corner blocks, the rest of the square is forced. That drops the search to `9⁴ = 6,561` top-left corners, with a bounded inner loop at each step (a "BOT-derivation" algorithm — build Bottom, then Top, then derive the rest).
+
+I wrote it in C, split the 6,561 TL-corner blocks across 12 worker processes, and let it run:
+
+**There are exactly 1,248 Barron Squares of order 2.**
+
+Wall-clock time: ~50 hours on 12 cores. I was nervous about a count this hard-won resting on a single implementation, so I wrote a second C program using a **structurally different algorithm** (Full Corner Derivation: fix TL, TR, BL corners, derive BR). It cost ~161 CPU-hours but confirmed 1,248 exactly, with matching per-worker subtotals. For a third independent check I encoded the constraints as a Z3 bitvector SMT problem and spot-checked 10 solutions — all matched the enumeration.
+
+## Two new structural theorems
+
+Staring at the 1,248 squares, two patterns jumped out:
+
+**Proposition 4.1 (Endpoint Pairing).** For every 8×8 Barron Square and every inner row index `r`, the left/right endpoints of row *r* are either equal to or a reversal of the top/bottom endpoints of column *r*. The dichotomy holds without exception across all `1,248 · 4 = 4,992` inner-index pairs: Case A occurs 2,598 times, Case B 2,394 times, no failures.
+
+**Theorem 4.2 (Inner Center Symmetry).** As a corollary of 4.1, the inner 4×4 center of every 8×8 Barron Square is a symmetric matrix. All 1,248 squares satisfy this.
+
+The self-transpose case of Proposition 4.1 has a direct algebraic proof. The asymmetric case — 624 squares — is so far only verified by computer. Turning that into a uniform algebraic proof (and pushing it to `k ≥ 3`) is the top open question.
+
+## The 3D case: no cubes exist
+
+A natural next step is three dimensions: a `4×4×4` cube of digits where every row, every column, *and* every pillar satisfies the multiplicative rule. The corner-determination idea still works — a `4×4×4` Barron Cube is determined by its 8 corner vertices, giving `9⁸ ≈ 43 million` octuplets to check.
+
+Exhaustive search, ~34 minutes: **there are zero `4×4×4` Barron Cubes**. The three-dimensional consistency system is empty.
+
+The heuristic for why is surprisingly tight: the probability a random octuplet produces face-valid inner slices is about `6·10⁻⁶`, and the constraint that the three interior slices agree pairwise on shared edges looks like it pushes the total expected count well below 1. A clean algebraic proof would be nice — the exhaustive confirmation is rigorous but unsatisfying.
+
+## Order 4 and beyond
+
+Order 4 (a 16×16 grid) is beyond exhaustive reach — the TL corner block alone has `9¹⁶` possibilities. I did `500,000` random trials and found zero valid squares, which is suggestive but not a count. The cross-order picture so far:
+
+| Order k | Size | Count |
+|---|---|---|
+| 1 | 4×4 | 118 |
+| 2 | 8×8 | 1,248 |
+| — | 4×4×4 cube | 0 |
+| 4 | 16×16 | none in 500,000 random trials |
+
+Whether the family is going extinct at higher orders or just getting sparse is open. A partial count at `k=3` (12×12) would really sharpen this picture, but I haven't found a way to make that search tractable yet.
+
+## Open questions
+
+From §6.2 of the paper, the ones I'd most like to see answered:
+
+1. **Prove the endpoint-pairing dichotomy algebraically** for asymmetric order-2 squares (and ideally for all `k ≥ 2`).
+2. **Count, or rigorously rule out, order-3 Barron Squares.**
+3. **Algebraic non-existence proof for the 4×4×4 cube** instead of relying on exhaustive search.
+4. **Base dependence.** The counts `(118, 1248, …)` are for base 10. What's the sequence in base 12? Base 16?
+
+## Links
+
+- **Paper:** [full 20-page PDF](/barron_squares.pdf)
+- **Code and data:** [github.com/trbarron/barron-squares](https://github.com/trbarron/barron-squares)
+- The sequence of order-*k* counts `(118, 1248, …)` will be submitted to OEIS; I'll link the entry here once it's registered.
+
+If you find a third term, or a clean algebraic argument for either of the order-2 theorems, I'd love to hear about it.
