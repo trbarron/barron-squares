@@ -50,13 +50,13 @@ Write $\mathrm{val}(s)$ for the decimal-integer value of a digit sequence $s$, s
 **Definition 1.1** (Order-$k$ Barron Square). A matrix $M \in \{0,\ldots,9\}^{4k \times 4k}$ is a *Barron Square of order $k$* if:
 
 1. *(Row condition.)* For every row index $i$, with $L_i, R_i$ the left and right endpoints of row $i$ and $I_i$ its interior,
-   $$\mathrm{val}(L_i) \cdot \mathrm{val}(R_i) \;=\; \mathrm{val}(I_i).$$
+   $$\mathrm{val}(L_i) \cdot \mathrm{val}(R_i) = \mathrm{val}(I_i).$$
 2. *(Column condition.)* For every column index $j$, with $T_j, B_j$ the top and bottom endpoints of column $j$ and $J_j$ its interior,
-   $$\mathrm{val}(T_j) \cdot \mathrm{val}(B_j) \;=\; \mathrm{val}(J_j).$$
+   $$\mathrm{val}(T_j) \cdot \mathrm{val}(B_j) = \mathrm{val}(J_j).$$
 3. *(Edge condition.)* No entry in the outermost $k$ rows or $k$ columns of $M$ is zero.
 
 For order $k = 1$ the row and column conditions specialize to the elementary scalar forms
-$$M_{i,0} \cdot M_{i,3} \;=\; 10\,M_{i,1} + M_{i,2}, \qquad M_{0,j} \cdot M_{3,j} \;=\; 10\,M_{1,j} + M_{2,j}.$$
+$$M_{i,0} \cdot M_{i,3} = 10\,M_{i,1} + M_{i,2}, \qquad M_{0,j} \cdot M_{3,j} = 10\,M_{1,j} + M_{2,j}.$$
 
 | Order $k$ | Matrix size | Corner block | Edge product width |
 |-----------|-------------|--------------|-------------------|
@@ -122,7 +122,7 @@ M_{2,1} = t(M_{2,0}\,M_{2,3}) = u(M_{0,1}\,M_{3,1}), & M_{2,2} = u(M_{2,0}\,M_{2
 *Proof.* Apply row 0's Barron condition: $ab = \mathrm{val}(M_{0,0})\cdot\mathrm{val}(M_{0,3})$ must equal the two-digit number $10\,M_{0,1} + M_{0,2}$, so $M_{0,1} = t(ab)$ and $M_{0,2} = u(ab)$. The same argument applied to row 3 and to columns 0 and 3 gives the eight edge cells displayed in the first block.
 
 With all eight edge cells fixed, the four inner cells are determined by the inner rows and columns. Row 1 has endpoints $M_{1,0} = t(ac)$ and $M_{1,3} = t(bd)$, so its Barron condition requires
-$$10\,M_{1,1} + M_{1,2} \;=\; t(ac)\cdot t(bd),$$
+$$10\,M_{1,1} + M_{1,2} = t(ac)\cdot t(bd),$$
 giving $M_{1,1} = t(t(ac)\,t(bd))$ and $M_{1,2} = u(t(ac)\,t(bd))$. Row 2 and the two inner columns yield the analogous expressions. $\square$
 
 ````{=typst}
@@ -198,18 +198,17 @@ giving $M_{1,1} = t(t(ac)\,t(bd))$ and $M_{1,2} = u(t(ac)\,t(bd))$. Row 2 and th
 The forcing in Theorem 2.1 pins each inner cell *twice* — once by its row and once by its column — so $M$ is a genuine Barron Square only when the two determinations agree.
 
 **Corollary 2.2** (Algebraic consistency conditions for order 1). *A quadruple of non-zero digits $(a,b,c,d)$ extends to a $4 \times 4$ Barron Square if and only if all four edge products $ab, cd, ac, bd$ have non-zero tens and units digits and the following three identities hold:*
-$$t(t(ac)\cdot t(bd)) \;=\; t(t(ab)\cdot t(cd)) \tag{C1}$$
-$$u(t(ac)\cdot t(bd)) \;=\; t(u(ab)\cdot u(cd)) \tag{C2}$$
-$$t(u(ac)\cdot u(bd)) \;=\; u(t(ab)\cdot t(cd)) \tag{C3}$$
+
+- **(C1)** $t(t(ac) \cdot t(bd)) = t(t(ab) \cdot t(cd))$
+- **(C2)** $u(t(ac) \cdot t(bd)) = t(u(ab) \cdot u(cd))$
+- **(C3)** $t(u(ac) \cdot u(bd)) = u(t(ab) \cdot t(cd))$
 
 *Proof.* Each equation equates the row-determination and column-determination of one of the four inner cells: (C1) corresponds to $M_{1,1}$, (C2) to $M_{1,2}$, and (C3) to $M_{2,1}$. The no-zero-edge condition is exactly the requirement that each of $ab, cd, ac, bd$ be a two-digit number with no zero digit. $\square$
 
-**Proposition 2.3** (Automatic fourth condition). *The candidate consistency equation for $M_{2,2}$, namely*
-$$u(u(ac)\cdot u(bd)) \;=\; u(u(ab)\cdot u(cd)), \tag{C4}$$
-*is satisfied for every choice of digits $(a,b,c,d)$.*
+**Proposition 2.3** (Automatic fourth condition). *The candidate consistency equation for $M_{2,2}$, namely* **(C4)** $u(u(ac) \cdot u(bd)) = u(u(ab) \cdot u(cd))$, *is satisfied for every choice of digits $(a,b,c,d)$.*
 
 *Proof.* For any integers $x,y$, $u(x)\,u(y) \equiv x\,y \pmod{10}$, so $u(u(x)\,u(y)) = u(xy)$. Applying this twice,
-$$u(u(ac)\,u(bd)) \;=\; u((ac)(bd)) \;=\; u(abcd) \;=\; u((ab)(cd)) \;=\; u(u(ab)\,u(cd)). \qquad \square$$
+$$u(u(ac)\,u(bd)) = u((ac)(bd)) = u(abcd) = u((ab)(cd)) = u(u(ab)\,u(cd)). \qquad \square$$
 
 Only three of the four inner cells thus impose genuine restrictions on $(a,b,c,d)$.
 
@@ -247,26 +246,11 @@ At order $k = 1$ the corner space $\{1,\ldots,9\}^4$ has only $9^4 = 6{,}561$ el
 
 *Proof.* For any even $b$, $5b \equiv 0 \pmod{10}$, placing a zero in the units edge position. The valid products $15, 25, 35, 45$ all avoid zeros. $\square$
 
-The valid corner digits are therefore $\{2, 3, 4, 5, 6, 7, 8, 9\}$, but not all combinations are valid — the corner digit frequencies from the 118 squares are:
-
-| Digit | Count | Freq | Notes |
-|-------|-------|------|-------|
-| 1 | 0 | 0.0% | **Excluded** (single-digit product) |
-| 2 | 36 | 7.6% | Low (only pairs with 6,7,8,9) |
-| 3 | 68 | 14.4% | |
-| 4 | 60 | 12.7% | |
-| 5 | 32 | 6.8% | **Restricted** (only odd partners) |
-| 6 | 60 | 12.7% | |
-| 7 | 64 | 13.6% | |
-| 8 | 84 | 17.8% | Most common |
-| 9 | 68 | 14.4% | |
+The valid corner digits are therefore $\{2, 3, 4, 5, 6, 7, 8, 9\}$. Empirically, the eight admissible digits occur as corners with frequencies ranging from $6.8\%$ (digit $5$, suppressed by Proposition 3.3) to $17.8\%$ (digit $8$); the full frequency table is in Appendix A.
 
 ### 3.2 Valid products
 
-The 22 distinct products that appear as edge values across all 118 squares are exactly those numbers in $\{10,\ldots,81\}$ with no zero digit:
-$$\{12, 14, 15, 16, 18, 21, 24, 25, 27, 28, 32, 35, 36, 42, 45, 48, 54, 56, 63, 64, 72, 81\}$$
-
-The most frequent products are **12** and **16** (each appearing 48 times), followed by **24** and **56** (each 40 times).
+The 22 zero-free two-digit numbers in $\{10,\ldots,81\}$ all appear as edge products across the 118 squares, with $12$ and $16$ the most frequent (each 48 times). The full distribution is in Appendix A.
 
 ### 3.3 Symmetry and transposition
 
@@ -318,20 +302,9 @@ The implementation in `src/barron8x8.c` achieves approximately $6 \times 10^7$ i
 
 The exhaustive parallel search described in §4.1 covers all $9^4 = 6{,}561$ values of TL across $12$ disjoint workers and yields exactly $\mathbf{1{,}248}$ distinct Barron Squares of order 2. Total wall-clock time was approximately $50$ hours on a 12-core processor.
 
-**Independent verification.** A second exhaustive search using a structurally different algorithm — *Full Corner Derivation* (FCD) — confirms the count of $1{,}248$. Where the BOT-derivation takes $(\mathrm{TL}, \mathrm{TR}, \mathrm{col}_4^{\mathrm{B}}, \mathrm{col}_5^{\mathrm{B}})$ as free variables and derives the bottom half of the matrix, the FCD algorithm takes $(\mathrm{TL}, \mathrm{TR}, \mathrm{BL})$ as free variables and derives the fourth corner $\mathrm{BR}$ by intersecting the edge-validity constraints of rows 6–7 and columns 6–7, then verifies inner-block consistency by comparing the $4 \times 4$ inner center as derived from inner rows against the one derived from inner columns. The FCD implementation (`src/verify_8x8.c`) shares no code with the BOT-derivation search. Across $12$ parallel workers partitioning the $6{,}561$ TL values, every per-worker subtotal matches the corresponding count from the canonical dataset, and the grand total agrees exactly. Total verification CPU time was approximately $161$ hours ($19$ hours wall time on $12$ cores). An additional spot check using the Z3 SMT solver [6] with a bitvector encoding of the full $64$-variable constraint system found $10$ solutions in $\sim\!13$ hours before being terminated, each of which matched a known square.
+**Independent verification.** A second exhaustive search using a structurally different algorithm — *Full Corner Derivation* (FCD) — confirms the count of $1{,}248$. Where the BOT-derivation takes $(\mathrm{TL}, \mathrm{TR}, \mathrm{col}_4^{\mathrm{B}}, \mathrm{col}_5^{\mathrm{B}})$ as free variables and derives the bottom half of the matrix, the FCD algorithm takes $(\mathrm{TL}, \mathrm{TR}, \mathrm{BL})$ as free variables and derives the fourth corner $\mathrm{BR}$ by intersecting the edge-validity constraints of rows 6–7 and columns 6–7, then verifies inner-block consistency by comparing the $4 \times 4$ inner center as derived from inner rows against the one derived from inner columns. The FCD implementation (`src/verify_8x8.c`) shares no code with the BOT-derivation search. Across $12$ parallel workers partitioning the $6{,}561$ TL values, every per-worker subtotal matches the corresponding count from the canonical dataset, and the grand total agrees exactly. Total verification CPU time was approximately $161$ hours ($19$ hours wall time on $12$ cores). An additional spot check using the Z3 SMT solver [6] with a bitvector encoding of the full $64$-variable constraint system found $10$ solutions in approximately $13$ hours before being terminated, each of which matched a known square.
 
-| Metric | $4 \times 4$ | $8 \times 8$ |
-|---|---|---|
-| Total squares | $118$ | $1{,}248$ |
-| Transpose-symmetric | $46$ ($39\%$) | $624$ ($50.0\%$) |
-| Rotationally symmetric | $0$ | $0$ |
-| Excluded corner digits | $\{1\}$ | $\varnothing$ |
-| Most frequent corner digit | $8$ ($17.8\%$) | $7$ ($13.5\%$) |
-| Least frequent corner digit | $5$ ($6.8\%$) | $1$ ($8.1\%$) |
-
-Two qualitative changes stand out. First, the structural digit exclusions of order 1 both disappear at order 2. Digit $1$ is forbidden as a $4 \times 4$ corner because $1 \cdot b = b$ is a single digit, but as the tens digit of a 2-digit $8 \times 8$ corner block (values $10,\ldots,19$) it produces genuine two-digit factors and so appears with frequency $8.1\%$. Digit $5$ is only restricted at order 1 because $5 \cdot (\text{even}) \equiv 0 \pmod{10}$; as the tens digit of a 2-digit corner block it has partners $51, 52, \ldots$ that evade this constraint, and its order-2 frequency rises to $8.8\%$. Second, the corner-digit distribution becomes markedly more uniform: at order 1 it ranges over $0\%$–$17.8\%$, whereas at order 2 all nine digits occur with frequencies confined to the interval $[8.1\%, 13.5\%]$.
-
-The transpose-symmetry rate, which rose erratically through the early stages of the search — from $69\%$ at $n = 157$ to $54\%$ at $n = 644$ to $49.7\%$ at $n = 1{,}232$ — settles at exactly $50.0\%$ at the full count $n = 1{,}248$. This is substantially higher than the order-1 rate of $39\%$, a phenomenon we address in §4.3.
+Two qualitative shifts distinguish order 2 from order 1. First, the structural digit exclusions of order 1 both disappear: digit $1$, forbidden as a $4 \times 4$ corner because $1 \cdot b = b$ is a single digit, functions fine as the tens digit of a 2-digit $8 \times 8$ corner block (values $10,\ldots,19$ all produce genuine two-digit factors), and similarly digit $5$ escapes its mod-10 restriction because partners like $51, 52, \ldots$ evade the parity collision. All nine digits therefore appear as corner cells at order 2 (full frequencies in Appendix B), and their distribution is markedly more uniform than at order 1. Second, the transpose-symmetry rate settles at exactly $50.0\%$ — $624$ self-transpose squares and $624$ asymmetric — a sharp jump from the order-1 rate of $39\%$ and a phenomenon we return to in §4.3.
 
 ### 4.3 Endpoint pairing and inner center symmetry
 
@@ -458,7 +431,7 @@ At order $k = 1$ the object is a $4 \times 4 \times 4$ array whose $48$ axis-ali
 **Remark 5.3** (Heuristic probability argument). A $4 \times 4 \times 4$ Barron Cube must simultaneously satisfy (i) all $6$ face-squares being valid order-$1$ Barron Squares and (ii) three-way axis consistency at each of the $8$ cube-interior cells, where the $x$-, $y$-, and $z$-axis lines through the cell independently determine its value.
 
 For a *single* face, the probability that $4$ vertices sampled uniformly from $\{1,\ldots,9\}^4$ form a valid order-$1$ corner quadruple is $p = 118 / 9^4 \approx 1.8 \times 10^{-2}$. The $6$ faces pair into $3$ *opposite-face* pairs, each pair using disjoint vertex quadruples; within a pair the two face-validity events are independent, but the $3$ pairs overlap through shared vertices. Under the simplifying — and optimistic — assumption that the $3$ opposite-face pairs are themselves independent, the expected number of $8$-vertex assignments satisfying the $6$ face-validity conditions alone is approximately
-$$9^8 \cdot p^{3} \;=\; \frac{118^{3}}{9^{4}} \;\approx\; 250.$$
+$$9^8 \cdot p^{3} = \frac{118^{3}}{9^{4}}  \approx  250.$$
 This is an *upper-bound* heuristic: it ignores both the positive correlation between opposite-face pairs and the additional $8$ cube-interior consistency conditions of constraint (ii), each of which imposes a three-way digit-agreement with a naive probability on the order of $10^{-2}$. Applying even a fraction of the interior constraints drops the expected count by many orders of magnitude, making the exhaustive finding of zero qualitatively consistent with a fully-coupled expectation well below $1$. The heuristic is not a proof; an algebraic non-existence argument remains open as Question 2 of §6.2.
 
 **Corollary 5.4.** *The Barron Cube construction is not a faithful dimensional lift of the Barron Square: $118$ order-1 Barron Squares exist, but no order-1 Barron Cube extends any subset of them to three dimensions.*
@@ -471,52 +444,22 @@ This section collects the cross-order trends that emerge from Sections 3 through
 
 ### 6.1 Cross-order trends
 
-*Corner digit distribution.* The shift from order 1 to order 2 redistributes the corner-digit frequencies as shown below.
+Three structural shifts distinguish order 2 from order 1.
 
-| Digit | $4 \times 4$ frequency | $8 \times 8$ frequency | Trend |
-|---|---|---|---|
-| 1 | $0.0\%$ | $8.1\%$ | excluded $\to$ allowed |
-| 2 | $7.6\%$ | $9.6\%$ | |
-| 3 | $14.4\%$ | $10.8\%$ | |
-| 4 | $12.7\%$ | $12.8\%$ | |
-| 5 | $6.8\%$ | $8.8\%$ | restricted $\to$ unrestricted |
-| 6 | $12.7\%$ | $11.0\%$ | |
-| 7 | $13.6\%$ | $13.5\%$ | |
-| 8 | $17.8\%$ | $12.4\%$ | dominant $\to$ average |
-| 9 | $14.4\%$ | $13.0\%$ | |
+*Digit exclusions disappear.* At order 1, digit $1$ is forbidden as a corner (Proposition 3.2) and digit $5$ is restricted to odd partners (Proposition 3.3). Both restrictions evaporate at order 2, where corners are 2-digit blocks rather than single digits: block values $10,\ldots,19$ produce legitimate two-digit factors, and 2-digit partners of $5$ such as $51, 52, \ldots$ evade the mod-10 collision. All nine digits accordingly appear as corner cells at order 2, and their distribution tightens to the range $[8.1\%, 13.5\%]$ from the order-1 range $[0\%, 17.8\%]$. The mechanism is generic: structural exclusions on individual digits are diluted when corners are blocks.
 
-The order-2 distribution is markedly more uniform (range $8.1\%$–$13.5\%$) than the order-1 distribution (range $0\%$–$17.8\%$). The mechanism is the one identified in §4.2: order-$k$ corner *blocks* contain many more factor pairs than single digits, so structural exclusions on individual digits are diluted at higher order.
+*Self-transpose rate jumps.* The order-1 self-transpose rate is $46/118 \approx 39\%$. The order-2 rate settles at exactly $624/1{,}248 = 50.0\%$. Proposition 4.1 and Theorem 4.2 give a partial explanation: the endpoint-pairing dichotomy forces the inner $4 \times 4$ center to be symmetric, which is a necessary condition for full-matrix transpose symmetry and ensures that every self-transpose square is in Case A at every inner index. What Proposition 4.1 does *not* explain is the exact $624/624$ split — an open question (§6.2, item 4). No square in either order has non-trivial rotational symmetry.
 
-*Symmetry.* The dihedral group $D_4$ acts on square matrices, and a Barron Square of any order is automatically invariant under transposition because the row and column Barron conditions are identical. No Barron Square in either order is invariant under a non-trivial rotation.
+*Product spectrum flattens.* At order 1 the $22$ valid edge products are exactly the two-digit numbers in $[10, 81]$ with no zero digit, and the top two ($12$ and $16$) occur $48/472 \approx 10.2\%$ of the time each. At order 2 the pool of zero-free four-digit products is far larger, and no single product dominates: $668$ distinct values cover $1{,}248 \cdot 8 = 9{,}984$ edge positions, with the top product $1892$ occurring only $80$ times ($0.8\%$). Interiors at order 2 may contain zeros (only the edge cells are zero-restricted), further expanding the admissible interior-digit patterns.
 
-| Symmetry group | $4 \times 4$ ($n = 118$) | $8 \times 8$ ($n = 1{,}248$) |
-|---|---|---|
-| $|G| = 1$ (no non-trivial symmetry) | $72$ ($61.0\%$) | $624$ ($50.0\%$) |
-| $|G| = 2$ (transpose only) | $46$ ($39.0\%$) | $624$ ($50.0\%$) |
-| $|G| \geq 4$ | $0$ | $0$ |
-
-The $8 \times 8$ count splits exactly evenly into asymmetric and transpose-symmetric squares. Proposition 4.1 and Theorem 4.2 explain part of the order-2 rise: the endpoint pairing dichotomy forces the inner $4 \times 4$ center to be symmetric, which is a *necessary* condition for full-matrix transpose symmetry. Consistent with this, every self-transpose square at order 2 is in Case A of Proposition 4.1 at every inner index, and Case A accounts for $2{,}598$ of the $4{,}992$ observed (square, inner index) pairs — well above the $2{,}394$ of Case B.
-
-*Product structure.* At order 1 the $22$ valid edge products are exactly the two-digit numbers in $[10, 81]$ with no zero digit. At order 2 the valid edge products are four-digit numbers in $[1000, 9801]$ with no zero digit; interiors may contain zeros (only the edge cells are zero-restricted). The order-2 data exhibits $668$ distinct edge-product values over $1{,}248 \times 8 = 9{,}984$ total edge positions. The distribution is substantially flatter than at order 1: the top two order-1 products $12$ and $16$ each occur $48$ times over $118 \times 4 = 472$ positions (each a frequency of $10.2\%$), whereas the most common order-2 product, $1892$, occurs only $80$ times — a frequency of $0.8\%$. The factor-of-$\sim\!13$ drop in peak product frequency reflects the much larger pool of valid four-digit products. The top fifteen order-2 edge products are shown below; no product dominates the distribution the way $12$ and $16$ do at order 1.
-
-| Rank | Product | Count | Rank | Product | Count | Rank | Product | Count |
-|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-|  1 | $1892$ | $80$ |  6 | $2475$ | $56$ | 11 | $1632$ | $48$ |
-|  2 | $1782$ | $72$ |  7 | $3168$ | $56$ | 12 | $1365$ | $48$ |
-|  3 | $1596$ | $64$ |  8 | $1197$ | $56$ | 13 | $2496$ | $48$ |
-|  4 | $2376$ | $64$ |  9 | $1274$ | $48$ | 14 | $1155$ | $40$ |
-|  5 | $1116$ | $56$ | 10 | $1224$ | $48$ | 15 | $3243$ | $40$ |
-
-*Information flow.* The corner blocks are the only genuine degrees of freedom: by Theorem 2.4 every other cell is a deterministic function of the four corner blocks. The data-processing inequality then gives, in the ensemble of order-$k$ Barron Squares under the uniform distribution,
-$$H(\text{corner cell}) \;\geq\; H(\text{edge cell}) \;\geq\; H(\text{inner cell}),$$
-where $H$ denotes Shannon entropy. The boundary acts as a lossy channel to the interior, and the interior is fully determined by the boundary.
+These shifts fit a single picture: Theorem 2.4 makes the corner blocks the only genuine degrees of freedom, and at higher order the corner *space* is simply much larger — $9^{16}$ at order 2 versus $9^4$ at order 1 — so residue obstructions that bite at order 1 are averaged away.
 
 ### 6.2 Open questions
 
 Several natural questions are left unresolved.
 
 1. **Uniform algebraic proof of Proposition 4.1 (Endpoint Pairing), and extension to higher orders.** At order 2 the asymmetric case of Proposition 4.1 is established by direct enumeration over the $624$ asymmetric Barron Squares; a *uniform* algebraic derivation — one that does not depend on the enumeration — is open even at order 2. More strongly, **Conjecture 6.1** (Endpoint Pairing, general order). *For every order-$k$ Barron Square and every inner-band index $r \in \{0, 1, \ldots, 2k-1\}$, the row-endpoint pair $(L(r), R(r))$ and the column-endpoint pair $(T(r), B(r))$ coincide as unordered multisets.* A proof of Conjecture 6.1 from the order-$k$ analogue of the consistency conditions (Corollary 2.2) would in particular give Theorem 4.2 an enumeration-free proof and would extend Inner Center Symmetry to all orders.
-2. **Algebraic proof of Theorem 5.2 (no $4 \times 4 \times 4$ Barron Cube).** The heuristic estimate of $\sim\!0.25$ expected cubes is suggestive but not rigorous. A proof would amount to showing that the three-dimensional consistency system has no digit solutions, presumably by a pigeonhole or residue argument on the shared vertices and edges.
+2. **Algebraic proof of Theorem 5.2 (no $4 \times 4 \times 4$ Barron Cube).** The heuristic expected count of approximately $250$ from face-validity alone (which falls well below $1$ once the cube-interior consistency conditions are imposed) is suggestive but not rigorous. A proof would amount to showing that the three-dimensional consistency system has no digit solutions, presumably by a pigeonhole or residue argument on the shared vertices and edges.
 3. **Asymptotic growth in $k$.** The $k = 1 \to k = 2$ transition shows growth by roughly an order of magnitude ($118 \to 1{,}248$), but a random probe of $5 \times 10^5$ configurations at $k = 4$ ($16 \times 16$) finds no valid square. Does the Barron family go extinct at some finite $k$, or does it become extremely sparse but non-empty? An exhaustive or targeted search at $k = 3$ ($12 \times 12$) would sharpen the trend.
 4. **Transpose-symmetry rate.** The order-2 self-transpose rate is exactly $50.0\%$, substantially above the order-1 rate of $39\%$. Proposition 4.1 and Theorem 4.2 give a partial explanation — Case A implies row/column alignment at every inner index — but do not predict the exact rate, and in particular do not explain the remarkable precise split $624 / 624$.
 5. **Base dependence.** The construction is tied to base $10$ through its use of place value. How does the count of Barron Squares depend on the base $b$? Bases $b \in \{2, \ldots, 9\}$ each yield a finite, computable problem at order 1, and bases $12$ or $16$ offer enough room to test whether the qualitative order-1 / order-2 story survives. The resulting count sequences — together with the order-$k$ count sequence at base $10$, currently known to begin $(118, 1{,}248, \ldots)$ — are natural OEIS entries [7].
@@ -567,6 +510,24 @@ Example 1.2 displays one canonical square. Below are three additional representa
 ````
 
 Corner quadruples: (a) $(4,4,6,4)$; (b) $(5,7,9,5)$; (c) $(6,4,7,8)$. Row and column products are verified by direct arithmetic; e.g., in (b), row 0 gives $5 \cdot 7 = 35$ and column 3 gives $7 \cdot 5 = 35$.
+
+**Corner-digit frequencies at order 1** (referenced in §3.1):
+
+| Digit | Count | Frequency | Note |
+|---|---|---|---|
+| $1$ | $0$ | $0.0\%$ | excluded (Proposition 3.2) |
+| $2$ | $36$ | $7.6\%$ | low — pairs only with $\{6,7,8,9\}$ |
+| $3$ | $68$ | $14.4\%$ | |
+| $4$ | $60$ | $12.7\%$ | |
+| $5$ | $32$ | $6.8\%$ | restricted (Proposition 3.3) |
+| $6$ | $60$ | $12.7\%$ | |
+| $7$ | $64$ | $13.6\%$ | |
+| $8$ | $84$ | $17.8\%$ | most common |
+| $9$ | $68$ | $14.4\%$ | |
+
+The 22 two-digit products with no zero digit that appear across all 118 squares are
+$$\{12, 14, 15, 16, 18, 21, 24, 25, 27, 28, 32, 35, 36, 42, 45, 48, 54, 56, 63, 64, 72, 81\},$$
+with $12$ and $16$ each appearing $48$ times (tied most frequent) and $24$ and $56$ each appearing $40$ times.
 
 Readers seeking the full enumeration or wishing to reproduce any derived statistic can load `results/4x4_squares.json` directly or regenerate it in under a second via `python src/find_4x4.py`.
 
@@ -701,11 +662,35 @@ Legacy full 118-row table (preserved below as an HTML comment in the Markdown so
 ## Appendix B: Computational details
 
 - **Order-1 enumeration.** Python (`src/find_4x4.py`), exhaustive over $9^4 = 6{,}561$ corner quadruples. Runtime $< 0.1$ s.
-- **Order-2 enumeration.** C (`src/barron8x8.c`), using the BOT-derivation algorithm of §4.1. Throughput $\sim\!6 \times 10^7$ inner checks per second per core. The search is parallelized across $12$ disjoint TL ranges (each covering $9^4 / 12 \approx 547$ values of TL) that together exhaust the full $9^4 = 6{,}561$-element TL space. Total wall-clock time is approximately $50$ hours on a 12-core processor, yielding $1{,}248$ distinct squares.
+- **Order-2 enumeration.** C (`src/barron8x8.c`), using the BOT-derivation algorithm of §4.1. Throughput approximately $6 \times 10^7$ inner checks per second per core. The search is parallelized across $12$ disjoint TL ranges (each covering $9^4 / 12 \approx 547$ values of TL) that together exhaust the full $9^4 = 6{,}561$-element TL space. Total wall-clock time is approximately $50$ hours on a 12-core processor, yielding $1{,}248$ distinct squares.
 - **Order-2 independent verification.** C (`src/verify_8x8.c`), using the Full Corner Derivation (FCD) algorithm. Free variables are TL, TR, BL (12 digits); BR is derived by intersecting the edge-validity constraints of rows 6–7 and columns 6–7, and the inner $4 \times 4$ center is cross-checked between row and column derivations. The FCD search is parallelized identically ($12$ workers partitioning the TL space). Total CPU time approximately $161$ hours ($19$ hours wall time on $12$ cores), confirming $1{,}248$ squares with per-worker counts matching exactly.
 - **Order-1 cube enumeration.** Python (`src/barron_3d.py`), exhaustive over $9^8 = 43{,}046{,}721$ vertex octuplets. Runtime $33.6$ minutes.
 - **Order-4 random probe.** $5 \times 10^5$ random corner configurations of $16 \times 16$ matrices, no valid squares found.
 - **Reproducibility.** All code, search outputs, and the TeX/Markdown source of this paper are available in the project repository.
+
+**Corner-cell frequencies at order 2** (referenced in §4.2 and §6.1). Corner *cells* rather than corner *digits*: each square has $4$ $2 \times 2$ corner blocks containing $16$ digit positions in total, giving $1{,}248 \cdot 16 = 19{,}968$ corner-cell observations.
+
+| Digit | Count | Frequency |
+|---|---|---|
+| $1$ | $1{,}624$ | $8.1\%$ |
+| $2$ | $1{,}908$ | $9.6\%$ |
+| $3$ | $2{,}160$ | $10.8\%$ |
+| $4$ | $2{,}564$ | $12.8\%$ |
+| $5$ | $1{,}760$ | $8.8\%$ |
+| $6$ | $2{,}188$ | $11.0\%$ |
+| $7$ | $2{,}696$ | $13.5\%$ |
+| $8$ | $2{,}480$ | $12.4\%$ |
+| $9$ | $2{,}588$ | $13.0\%$ |
+
+**Top edge products at order 2** (referenced in §6.1). Of $668$ distinct four-digit products across $9{,}984$ edge positions, the fifteen most frequent are:
+
+| Rank | Product | Count | Rank | Product | Count | Rank | Product | Count |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+|  1 | $1892$ | $80$ |  6 | $2475$ | $56$ | 11 | $1632$ | $48$ |
+|  2 | $1782$ | $72$ |  7 | $3168$ | $56$ | 12 | $1365$ | $48$ |
+|  3 | $1596$ | $64$ |  8 | $1197$ | $56$ | 13 | $2496$ | $48$ |
+|  4 | $2376$ | $64$ |  9 | $1274$ | $48$ | 14 | $1155$ | $40$ |
+|  5 | $1116$ | $56$ | 10 | $1224$ | $48$ | 15 | $3243$ | $40$ |
 
 ---
 
